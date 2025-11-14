@@ -95,7 +95,7 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({ open, onClose }) => {
                                     secondary={"変換を実行するための設定を管理します。"} />
                             </ListItemButton>
                         </ListItem>
-                        <ListItem key={"メッセージリソース変換"} disablePadding>
+                        <ListItem key={"変換設定の管理"} disablePadding>
                             <ListItemButton onClick={() => {
                                 navigate("/transform-code");
                             }}>
@@ -103,12 +103,12 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({ open, onClose }) => {
                                     <CodeIcon color="primary" fontSize="medium" />
                                 </ListItemAvatar>
                                 <ListItemText
-                                    primary={<Box sx={{ color: "#1b85d1" }} fontWeight={"bold"}>メッセージリソース変換</Box>}
-                                    secondary={"メッセージリソースを変換するためのページです。"}
+                                    primary={<Box sx={{ color: "#1b85d1" }} fontWeight={"bold"}>GEF-JDBCのAPIコード変換</Box>}
+                                    secondary={"GEF-DAOの仮想表からGEF-JDBCのAPIコードに変換するためのページです。"}
                                 />
                             </ListItemButton>
                         </ListItem>
-                        <ListItem key={"エラーメッセージリソース変換"} disablePadding>
+                        <ListItem key={"変換設定の管理"} disablePadding>
                             <ListItemButton onClick={() => {
                                 navigate("/transform-entity");
                             }}>
@@ -116,8 +116,36 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({ open, onClose }) => {
                                     <BackupTableIcon color="primary" fontSize="medium" />
                                 </ListItemAvatar>
                                 <ListItemText
+                                    primary={<Box sx={{ color: "#1b85d1" }} fontWeight={"bold"}>GEFーJDBCのエンティティファイル変換</Box>}
+                                    secondary={"GEF-DAOのエンティティからGEF-JDBCのエンティティファイルに変換するためのページです。"}
+                                />
+                            </ListItemButton>
+                        </ListItem>
+
+                        <ListItem key={"変換設定の管理"} disablePadding>
+                            <ListItemButton onClick={() => {
+                                navigate("/transform-message");
+                            }}>
+                                <ListItemAvatar sx={{ minWidth: 40 }}>
+                                    <BackupTableIcon color="primary" fontSize="medium" />
+                                </ListItemAvatar>
+                                <ListItemText
+                                    primary={<Box sx={{ color: "#1b85d1" }} fontWeight={"bold"}>メッセージリソース変換</Box>}
+                                    secondary={"メッセージリソース変換するためのページです。"}
+                                />
+                            </ListItemButton>
+                        </ListItem>
+
+                        <ListItem key={"変換設定の管理"} disablePadding>
+                            <ListItemButton onClick={() => {
+                                navigate("/transform-error-message");
+                            }}>
+                                <ListItemAvatar sx={{ minWidth: 40 }}>
+                                    <BackupTableIcon color="primary" fontSize="medium" />
+                                </ListItemAvatar>
+                                <ListItemText
                                     primary={<Box sx={{ color: "#1b85d1" }} fontWeight={"bold"}>エラーメッセージリソース変換</Box>}
-                                    secondary={"エラーメッセージリソースを変換するためのページです。"}
+                                    secondary={"エラーメッセージリソース変換するためのページです。"}
                                 />
                             </ListItemButton>
                         </ListItem>

@@ -1,0 +1,28 @@
+db:
+# gef-daoリポジトリテーブルにアクセスする時の接続情報を設定します。
+    url: junitDBUrl
+    dbType: mysql
+    schema: junitSchema
+    username: junitUserName
+    password: junitPassword
+reservedWords:
+# gef-dao Virtual Entityに設定されている各種予約語をツールに連携します。
+    primaryKey: "junitPrimaryKey"
+    exclusiveKey: "junitExclusiveKey"
+    companyCodeKey: "junitCompanyCode"
+    insertedUserIDKey: junitInsertedUser
+    insertedDateKey: junitInsertedDate
+    updatedUserIDKey: junitUpdatedUserId
+    updatedDateKey: junitUpdatedDate
+#localeは設定されない時に、jpになります。
+locale:
+    current: junitLocale
+    mapping:
+        country1:
+        country2:
+        country3:
+        country4:
+        country5:
+#inputEncodingとアウトプットは設定されない時に、JVMのエンコーディングになります。
+condition.encoding: junitInputEncoding
+transform.encoding: junitOutputEncoding

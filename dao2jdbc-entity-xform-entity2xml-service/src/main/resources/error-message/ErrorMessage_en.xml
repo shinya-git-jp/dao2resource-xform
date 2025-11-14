@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<error-messages>
+	<error code="GEF-000000">
+		<type>error</type>
+		<message>Un Handle Error. Please make contact with administrator.</message>
+	</error>
+	<error code="GEF-000001">
+		<type>error</type>
+		<message>Please Input</message>
+	</error>
+	<error code="GEF-000002">
+		<type>error</type>
+		<message>Type is Miss Match</message>
+	</error>
+	<error code="GEF-000003">
+		<type>error</type>
+		<message>Max Length Error</message>
+	</error>
+	<error code="GEF-000004">
+		<type>error</type>
+		<message>Decimal Length Error</message>
+	</error>
+	<error code="GEF-000005">
+		<type>error</type>
+		<message>Not Permission Value</message>
+	</error>
+	<error code="GEF-000006">
+		<type>error</type>
+		<message>Not Input Minus Number</message>
+	</error>
+	<error code="GEF-000007">
+		<type>error</type>
+		<message>Minimum Error</message>
+	</error>
+	<error code="GEF-000008">
+		<type>error</type>
+		<message>Maximum Error</message>
+	</error>
+	<error code="GEF-000009">
+		<type>error</type>
+		<message>Not Input Error</message>
+	</error>
+	<error code="GEF-000010">
+		<type>error</type>
+		<message>Caps Error</message>
+	</error>
+	<error code="GEF-000011">
+		<type>error</type>
+		<message>Caps Error</message>
+	</error>
+	<error code="GEF-000012">
+		<type>error</type>
+		<message>Double Byte Error</message>
+	</error>
+	<error code="GEF-000013">
+		<type>error</type>
+		<message>KANA Error</message>
+	</error>
+	<error code="GEF-000014">
+		<type>error</type>
+		<message>Numeric Error</message>
+	</error>
+	<error code="GEF-000015">
+		<type>error</type>
+		<message>Zero Error</message>
+	</error>
+	<error code="GEF-000016">
+		<type>error</type>
+		<message>Minus Error</message>
+	</error>
+	<error code="GEF-000017">
+		<type>error</type>
+		<message>Prohibition Error</message>
+	</error>
+	<error code="GEF-000018">
+		<type>error</type>
+		<message>Invalid Month Error</message>
+	</error>
+	<error code="GEF-000019">
+		<type>error</type>
+		<message>Max Byte Length Error</message>
+	</error>
+	<error code="GEF-000031">
+		<type>error</type>
+		<message>Follow Date Error</message>
+	</error>
+	<error code="GEF-000032">
+		<type>error</type>
+		<message>Not Save Target Date</message>
+	</error>
+	<error code="GEF-000051">
+		<type>error</type>
+		<message>No Master Error</message>
+	</error>
+	<error code="GEF-000052">
+		<type>error</type>
+		<message>Exist Master Error</message>
+	</error>
+	<error code="GEF-000053">
+		<type>error</type>
+		<message>Invalid Master Error</message>
+	</error>
+	<error code="GEF-000054">
+		<type>error</type>
+		<message>Master Not Start Error</message>
+	</error>
+	<error code="GEF-000055">
+		<type>error</type>
+		<message>Master Not Start Invalid Error</message>
+	</error>
+	<error code="GEF-000056">
+		<type>error</type>
+		<message>Invalid Month Error</message>
+	</error>
+	<error code="GEF-000059">
+		<type>error</type>
+		<message>Invalid Date Error</message>
+	</error>
+	<error code="GEF-000101">
+		<type>error</type>
+		<message>Unique Error</message>
+	</error>
+	<error code="GEF-000102">
+		<type>error</type>
+		<message>Exclusive Error</message>
+	</error>
+	<error code="GEF-000103">
+		<type>error</type>
+		<message>Deleted Error</message>
+	</error>
+	<error code="GEF-000105">
+		<type>error</type>
+		<message>Set Detail Records without a Header Record</message>
+	</error>
+	<error code="GEF-000106">
+		<type>error</type>
+		<message>Not Save Target Data</message>
+	</error>
+	<error code="GEF-000107">
+		<type>error</type>
+		<message>Because of the other user using database lock failed</message>
+	</error>
+	<error code="GEF-000108">
+		<type>error</type>
+		<message>Invalid Parent.</message>
+	</error>
+	<error code="GEF-000109">
+		<type>error</type>
+		<message>File Get Error</message>
+	</error>
+	<error code="GEF-000110">
+		<type>error</type>
+		<message>Over Limit Count! Please Input Condition.</message>
+	</error>
+	<error code="GEF-000111">
+		<type>error</type>
+		<message>Cannot Delete Other's Files</message>
+	</error>
+	<error code="GEF-000112">
+		<type>error</type>
+		<message>File Size Over Error</message>
+	</error>
+	<error code="GEF-000113">
+		<type>error</type>
+		<message>No Data.</message>
+	</error>
+	<error code="GEF-001000">
+		<type>error</type>
+		<message>Invalid UserID Password</message>
+	</error>
+	<error code="GEF-001001">
+		<type>error</type>
+		<message>Illeagal Access Error</message>
+	</error>
+	<error code="GEF-001002">
+		<type>error</type>
+		<message>Cannot use this.</message>
+	</error>
+	<error code="GEF-001003">
+		<type>error</type>
+		<message>Please Login System, again.</message>
+	</error>
+	<error code="GEF-001004">
+		<type>error</type>
+		<message>There is no access authority.</message>
+	</error>
+	<error code="GEM-000001">
+		<type>error</type>
+		<message>File Get Error.</message>
+	</error>
+	<error code="GEM-000002">
+		<type>error</type>
+		<message>Max Length Error.</message>
+	</error>
+	<error code="GEM-000003">
+		<type>error</type>
+		<message>Please Input.</message>
+	</error>
+	<error code="GEM-000004">
+		<type>error</type>
+		<message>Syntax error</message>
+	</error>
+	<error code="GEM-000005">
+		<type>error</type>
+		<message>No defined Role.</message>
+	</error>
+	<error code="GEM-000006">
+		<type>error</type>
+		<message>CircularReference Error.</message>
+	</error>
+	<error code="GEM-000007">
+		<type>error</type>
+		<message>Prohibition Error.</message>
+	</error>
+	<error code="GEM-000008">
+		<type>error</type>
+		<message>No Data Exists.</message>
+	</error>
+	<error code="GEM-000009">
+		<type>error</type>
+		<message>Category Set Error.</message>
+	</error>
+	<error code="GEM-000011">
+		<type>error</type>
+		<message>Unique Error.</message>
+	</error>
+	<error code="GEM-000012">
+		<type>error</type>
+		<message>No ApplicationType Exists.</message>
+	</error>
+	<error code="GEM-000013">
+		<type>error</type>
+		<message>Illeagal Value Error.</message>
+	</error>
+	<error code="GEM-000015">
+		<type>error</type>
+		<message>No Menu Information corresponds to ParentMenuObjectID.</message>
+	</error>
+	<error code="GEM-000016">
+		<type>error</type>
+		<message>Illeagal ItemFlag Error.</message>
+	</error>
+	<error code="GEM-000017">
+		<type>error</type>
+		<message>Character String Of The Date Error.</message>
+	</error>
+	<error code="GEM-000018">
+		<type>error</type>
+		<message>Deleted Error.</message>
+	</error>
+	<error code="GEM-000019">
+		<type>error</type>
+		<message>Exclusive Error.</message>
+	</error>
+	<error code="GEM-000020">
+		<type>error</type>
+		<message>Illeagal String Length Error. It is not a {0} digit.</message>
+	</error>
+	<error code="GEM-000021">
+		<type>error</type>
+		<message>Import destination is not a category.</message>
+	</error>
+	<error code="GEM-000022">
+		<type>error</type>
+		<message>There is no import destination.</message>
+	</error>
+	<error code="GEM-000023">
+		<type>error</type>
+		<message>The size of the file is zero.</message>
+	</error>
+	<error code="GEM-000024">
+		<type>error</type>
+		<message>No MenuType Exists.</message>
+	</error>
+	<error code="GEM-000025">
+		<type>error</type>
+		<message>The specification of ParentID is a hierarchy below oneself.</message>
+	</error>
+	<error code="GEM-000026">
+		<type>error</type>
+		<message>No defined Parent Menu.</message>
+	</error>
+	<error code="GEM-000027">
+		<type>error</type>
+		<message>Data cannot be shifted. The sending side is the same as the data of the receiving side.</message>
+	</error>
+	<error code="GEM-000028">
+		<type>error</type>
+		<message>No paste target Exists.</message>
+	</error>
+	<error code="GEM-000029">
+		<type>error</type>
+		<message>Cannot be set for categories.</message>
+	</error>
+	<error code="GEM-000030">
+		<type>error</type>
+		<message>Invalid Cell Type</message>
+	</error>
+</error-messages>

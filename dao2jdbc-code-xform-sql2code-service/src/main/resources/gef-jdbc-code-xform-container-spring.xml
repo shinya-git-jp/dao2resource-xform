@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util-3.0.xsd
+          ">
+    <bean id="jp.co.kccs.greenearth.xform.code.dao.core.GDao2XFormScriptConverter" class="jp.co.kccs.greenearth.xform.code.dao.core.GDao2XFormScriptConverterImpl"/>
+    <bean id="jp.co.kccs.greenearth.xform.code.jdbc.core.metadata.GXFormScriptMetadata"
+          class="jp.co.kccs.greenearth.xform.code.jdbc.core.metadata.GXFormScriptMetadataImpl" scope="singleton"/>
+    <bean id="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.GXFormCodeTransformer"
+          class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.GXFormCodeTransformerImpl"
+          scope="singleton">
+        <constructor-arg>
+            <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.sql.GJSqlParser" scope="singleton"/>
+        </constructor-arg>
+    </bean>
+    <bean id="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.sql.GSqlParser"
+          class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.sql.GJSqlParser" />
+    <bean id="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.GSqlStatement2DeleteHandler" class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.GSqlStatement2DeleteHandler">
+        <constructor-arg>
+            <list>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GSqlStatement2DeleteWhereHandler"/>
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.GSqlStatement2InsertHandler" class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.GSqlStatement2InsertHandler">
+        <constructor-arg>
+            <list>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GSqlStatement2InsertValuesHandler"/>
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.GSqlStatement2UpdateHandler" class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.GSqlStatement2UpdateHandler">
+        <constructor-arg>
+            <list>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GSqlStatement2UpdateSetHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GSqlStatement2UpdateWhereHandler"/>
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.GSqlStatement2SelectHandler" class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.GSqlStatement2SelectHandler">
+        <constructor-arg>
+            <list>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GSqlStatement2SelectJoinHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GSqlStatement2SelectFieldHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GSqlStatement2SelectDistinctHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GSqlStatement2SelectGroupByHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GSqlStatement2SelectHavingHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GSqlStatement2SelectOrderByHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GSqlStatement2SelectWhereHandler"/>
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.GSelect2CodeHandler" class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.GSelect2CodeHandler">
+        <constructor-arg>
+            <list>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GSelect2CodeSubQueryParamHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GSelect2CodeHavingParamHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GSelect2CodeWhereParamsHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GSelect2CodeJoinParamsHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GSelect2CodeSelectHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GSelect2CodeFieldsHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GSelect2CodeDistinctHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GSelect2CodeGroupByHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GSelect2CodeJoinHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GSelect2CodeHavingHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GSelect2CodeOrderByHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GSelect2CodeWhereHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GSelect2CodeFindHandler"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.GUpdate2CodeHandler" class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.GUpdate2CodeHandler">
+        <constructor-arg>
+            <list>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GUpdate2CodeWhereParamsHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GUpdate2CodeSetParamsHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GUpdate2CodeUpdateHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GUpdate2CodeSetHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GUpdate2CodeWhereHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GUpdate2CodeExecuteHandler"/>
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.GInsert2CodeHandler" class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.GInsert2CodeHandler">
+        <constructor-arg>
+            <list>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GInsert2CodeValuesParamsHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GInsert2CodeInsertHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GInsert2CodeValuesHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GInsert2CodeExecuteHandler"/>
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.GDelete2CodeHandler" class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.GDelete2CodeHandler">
+        <constructor-arg>
+            <list>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GDelete2CodeWhereParamsHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GDelete2CodeDeleteHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GDelete2CodeWhereHandler"/>
+                <bean class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.parts.GDelete2CodeExecuteHandler"/>
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.GXFormScriptCodeCreator"
+          class="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.GXFormScriptCodeCreatorImpl" >
+        <constructor-arg>
+            <list>
+                <ref bean="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.GSqlStatement2DeleteHandler"/>
+                <ref bean="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.GSqlStatement2InsertHandler"/>
+                <ref bean="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.GSqlStatement2UpdateHandler"/>
+                <ref bean="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.GSqlStatement2SelectHandler"/>
+            </list>
+        </constructor-arg>
+        <constructor-arg>
+            <list>
+                <ref bean="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.GSelect2CodeHandler"/>
+                <ref bean="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.GUpdate2CodeHandler"/>
+                <ref bean="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.GInsert2CodeHandler"/>
+                <ref bean="jp.co.kccs.greenearth.xform.code.jdbc.core.engine.creator.handler.GDelete2CodeHandler"/>
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="jp.co.kccs.greenearth.xform.code.jdbc.core.service.GXFormScriptColumnBuilder"
+          class="jp.co.kccs.greenearth.xform.code.jdbc.core.service.GXFormScriptColumnBuilderImpl"
+          scope="prototype"/>
+    <bean id="jp.co.kccs.greenearth.xform.code.jdbc.core.service.GXFormScriptBuilder"
+          class="jp.co.kccs.greenearth.xform.code.jdbc.core.service.GXFormScriptBuilderImpl"
+          scope="prototype"/>
+    <bean id="jp.co.kccs.greenearth.xform.code.jdbc.core.service.GXFormCodeTransformService"
+          class="jp.co.kccs.greenearth.xform.code.jdbc.core.service.GXFormCodeTransformServiceImpl"
+          scope="singleton"/>
+    <bean id="jp.co.kccs.greenearth.xform.code.jdbc.core.export.GExporter"
+          class="jp.co.kccs.greenearth.xform.code.jdbc.core.export.GExporterImpl"
+          scope="singleton"/>
+</beans>

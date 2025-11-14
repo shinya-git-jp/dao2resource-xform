@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util-3.0.xsd
+          ">
+    <bean id="jp.co.kccs.greenearth.xform.code.dao.core.GDao2XFormScriptConverter"
+          class="jp.co.kccs.greenearth.xform.code.dao.core.GDao2XFormScriptConverterImpl"
+          scope="singleton"/>
+    <bean id="jp.co.kccs.greenearth.xform.code.dao2jdbc.core.service.GDao2XFormCodeTransform"
+          class="jp.co.kccs.greenearth.xform.code.dao2jdbc.core.service.GDao2XFormCodeTransformImpl"
+          scope="singleton"/>
+    <bean id="jp.co.kccs.greenearth.xform.code.dao2jdbc.core.sql.GVEMetadata2SqlExtractor"
+          class="jp.co.kccs.greenearth.xform.code.dao2jdbc.core.sql.GVEMetadata2SqlExtractorImpl"
+          scope="singleton">
+        <constructor-arg>
+            <map>
+                <entry>
+                    <key>
+                        <value type="jp.co.kccs.greenearth.xform.code.dao.core.GCrudType">SELECT</value>
+                    </key>
+                    <bean class="jp.co.kccs.greenearth.xform.code.dao2jdbc.core.sql.generator.impl.GVEMetadata2SqlExtractorSelectStrategy"/>
+                </entry>
+                <entry>
+                    <key>
+                        <value type="jp.co.kccs.greenearth.xform.code.dao.core.GCrudType">INSERT</value>
+                    </key>
+                    <bean class="jp.co.kccs.greenearth.xform.code.dao2jdbc.core.sql.generator.impl.GVEMetadata2SqlExtractorInsertStrategy"/></entry>
+                <entry>
+                    <key>
+                        <value type="jp.co.kccs.greenearth.xform.code.dao.core.GCrudType">UPDATE</value>
+                    </key>
+                    <bean class="jp.co.kccs.greenearth.xform.code.dao2jdbc.core.sql.generator.impl.GVEMetadata2SqlExtractorUpdateStrategy"/></entry>
+                <entry>
+                    <key>
+                        <value type="jp.co.kccs.greenearth.xform.code.dao.core.GCrudType">DELETE</value>
+                    </key>
+                    <bean class="jp.co.kccs.greenearth.xform.code.dao2jdbc.core.sql.generator.impl.GVEMetadata2SqlExtractorDeleteStrategy"/></entry>
+            </map>
+        </constructor-arg>
+    </bean>
+</beans>

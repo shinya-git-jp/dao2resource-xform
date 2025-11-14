@@ -1,0 +1,6 @@
+FROM nginx:latest
+
+
+COPY nginx.conf.integration /etc/nginx/nginx.conf
+
+CMD ["nginx", "-g", "daemon off;"]

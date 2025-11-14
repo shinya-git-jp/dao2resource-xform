@@ -1,0 +1,74 @@
+# Maven
+dao2jdbc-code-xform-cmd/dbTestData.xml
+target/
+.flattened-pom.xml
+/.factorypath
+
+# Subversion
+.svn/
+
+# Visual Studio Code
+.vscode/
+.history/
+.settings/
+## dependencies
+/node_modules
+/.pnp
+.pnp.js
+## testing
+/coverage
+## production
+/build
+## misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+
+# Eclipse
+.settings/
+.metadata/
+.checkstyle
+.pmd
+.ruleset
+.classpath
+.project
+TEST-net.jsunit.StandaloneTest.xml
+
+# Visual Studio
+.svn/
+#bin/
+obj/
+packages/
+TestResults/
+*.suo
+StyleCop.Cache
+.shfbproj
+
+# IntelliJ IDEA
+.idea/
+.idea_modules/
+*.iml
+*.iws
+
+# Node.js
+#node_modules/
+#bin/
+
+# Gradle
+.gradle/
+build/
+
+# Derby
+derby.log
+
+# Other Rule
+dest/
+logs/
+*/screenshot/
+ria-resources/

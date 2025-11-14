@@ -1,0 +1,107 @@
+events {}
+
+http {
+    upstream entity-extractor-service {
+        server backend.dao2jdbc-xform.integration.jissou.kccs.local:8082;
+    }
+
+    upstream sql-extractor-service {
+        server backend.dao2jdbc-xform.integration.jissou.kccs.local:8081;
+    }
+
+    upstream new-service {
+        server backend.dao2jdbc-xform.integration.jissou.kccs.local:8080;
+    }
+
+    server {
+        listen 80;
+
+        location /sql-extractor-service/ {
+            add_header 'Access-Control-Allow-Origin' "http://dao2jdbc-xform.integration.jissou.kccs.local, http://localhost:5173" always;
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
+            add_header 'Access-Control-Allow-Headers' 'Origin, Content-Type, Accept, Authorization' always;
+            add_header 'Access-Control-Allow-Credentials' 'true' always;
+
+            # CORS headers for preflight OPTIONS requests
+            if ($request_method = OPTIONS) {
+                add_header 'Access-Control-Allow-Origin' "http://dao2jdbc-xform.integration.jissou.kccs.local, http://localhost:5173";
+                add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS';
+                add_header 'Access-Control-Allow-Headers' 'Origin, Content-Type, Accept, Authorization';
+                add_header 'Access-Control-Allow-Credentials' 'true';
+                add_header Content-Length 0;
+                add_header Content-Type text/plain;
+                return 204;
+            }
+            proxy_pass http://sql-extractor-service/;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_next_upstream error timeout invalid_header http_502;
+        }
+
+        location /entity-extractor-service/ {
+            add_header 'Access-Control-Allow-Origin' "http://dao2jdbc-xform.integration.jissou.kccs.local, http://localhost:5173" always;
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
+            add_header 'Access-Control-Allow-Headers' 'Origin, Content-Type, Accept, Authorization' always;
+            add_header 'Access-Control-Allow-Credentials' 'true' always;
+
+            # CORS headers for preflight OPTIONS requests
+            if ($request_method = OPTIONS) {
+                add_header 'Access-Control-Allow-Origin' "http://dao2jdbc-xform.integration.jissou.kccs.local, http://localhost:5173";
+                add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS';
+                add_header 'Access-Control-Allow-Headers' 'Origin, Content-Type, Accept, Authorization';
+                add_header 'Access-Control-Allow-Credentials' 'true';
+                add_header Content-Length 0;
+                add_header Content-Type text/plain;
+                return 204;
+            }
+            proxy_pass http://entity-extractor-service/;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_next_upstream error timeout invalid_header http_502;
+        }
+
+        location /sql2code-service/ {
+            add_header 'Access-Control-Allow-Origin' "http://dao2jdbc-xform.integration.jissou.kccs.local, http://localhost:5173" always;
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
+            add_header 'Access-Control-Allow-Headers' 'Origin, Content-Type, Accept, Authorization' always;
+            add_header 'Access-Control-Allow-Credentials' 'true' always;
+
+            # CORS headers for preflight OPTIONS requests
+            if ($request_method = OPTIONS) {
+                add_header 'Access-Control-Allow-Origin' "http://dao2jdbc-xform.integration.jissou.kccs.local, http://localhost:5173";
+                add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS';
+                add_header 'Access-Control-Allow-Headers' 'Origin, Content-Type, Accept, Authorization';
+                add_header 'Access-Control-Allow-Credentials' 'true';
+                add_header Content-Length 0;
+                add_header Content-Type text/plain;
+                return 204;
+            }
+            proxy_pass http://new-service/dao2jdbc-xform-sql2code/api/;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_next_upstream error timeout invalid_header http_502;
+        }
+
+        location /entity2xml-service/ {
+            add_header 'Access-Control-Allow-Origin' "http://dao2jdbc-xform.integration.jissou.kccs.local, http://localhost:5173" always;
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
+            add_header 'Access-Control-Allow-Headers' 'Origin, Content-Type, Accept, Authorization' always;
+            add_header 'Access-Control-Allow-Credentials' 'true' always;
+
+            # CORS headers for preflight OPTIONS requests
+            if ($request_method = OPTIONS) {
+                add_header 'Access-Control-Allow-Origin' "http://dao2jdbc-xform.integration.jissou.kccs.local, http://localhost:5173";
+                add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS';
+                add_header 'Access-Control-Allow-Headers' 'Origin, Content-Type, Accept, Authorization';
+                add_header 'Access-Control-Allow-Credentials' 'true';
+                add_header Content-Length 0;
+                add_header Content-Type text/plain;
+                return 204;
+            }
+            proxy_pass http://new-service/dao2jdbc-xform-entity2xml/api/;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_next_upstream error timeout invalid_header http_502;
+        }
+    }
+}

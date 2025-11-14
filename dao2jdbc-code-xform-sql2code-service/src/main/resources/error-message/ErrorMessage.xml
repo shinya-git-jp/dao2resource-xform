@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<error-messages>
+	<error code="GEF-000000">
+		<type>error</type>
+		<message>予期せぬ問題が発生しました。管理者に連絡して下さい。</message>
+	</error>
+	<error code="GEF-000001">
+		<type>error</type>
+		<message>入力して下さい</message>
+	</error>
+	<error code="GEF-000002">
+		<type>error</type>
+		<message>型が違います</message>
+	</error>
+	<error code="GEF-000003">
+		<type>error</type>
+		<message>桁数が制限を超えています</message>
+	</error>
+	<error code="GEF-000004">
+		<type>error</type>
+		<message>小数点以下の桁が制限を超えています</message>
+	</error>
+	<error code="GEF-000005">
+		<type>error</type>
+		<message>この値は入力できません</message>
+	</error>
+	<error code="GEF-000006">
+		<type>error</type>
+		<message>負の数は入力できません</message>
+	</error>
+	<error code="GEF-000007">
+		<type>error</type>
+		<message>入力値が小さすぎます</message>
+	</error>
+	<error code="GEF-000008">
+		<type>error</type>
+		<message>入力値が大きすぎます</message>
+	</error>
+	<error code="GEF-000009">
+		<type>error</type>
+		<message>入力できません</message>
+	</error>
+	<error code="GEF-000010">
+		<type>error</type>
+		<message>小文字は入力できません</message>
+	</error>
+	<error code="GEF-000011">
+		<type>error</type>
+		<message>大文字は入力できません</message>
+	</error>
+	<error code="GEF-000012">
+		<type>error</type>
+		<message>全角文字は入力できません</message>
+	</error>
+	<error code="GEF-000013">
+		<type>error</type>
+		<message>半角カナは入力できません</message>
+	</error>
+	<error code="GEF-000014">
+		<type>error</type>
+		<message>数値を入力して下さい</message>
+	</error>
+	<error code="GEF-000015">
+		<type>error</type>
+		<message>0は入力できません</message>
+	</error>
+	<error code="GEF-000016">
+		<type>error</type>
+		<message>マイナス値は入力できません</message>
+	</error>
+	<error code="GEF-000017">
+		<type>error</type>
+		<message>禁止文字が含まれています</message>
+	</error>
+	<error code="GEF-000018">
+		<type>error</type>
+		<message>年月の指定が不正です</message>
+	</error>
+	<error code="GEF-000019">
+		<type>error</type>
+		<message>バイト数が制限を超えています</message>
+	</error>
+	<error code="GEF-000031">
+		<type>error</type>
+		<message>先の日付は入力できません</message>
+	</error>
+	<error code="GEF-000032">
+		<type>error</type>
+		<message>過去の日付は入力できません</message>
+	</error>
+	<error code="GEF-000051">
+		<type>error</type>
+		<message>マスタに登録されていません</message>
+	</error>
+	<error code="GEF-000052">
+		<type>error</type>
+		<message>マスタに存在します</message>
+	</error>
+	<error code="GEF-000053">
+		<type>error</type>
+		<message>このコードは停止されています</message>
+	</error>
+	<error code="GEF-000054">
+		<type>error</type>
+		<message>このコードは有効期限前です</message>
+	</error>
+	<error code="GEF-000055">
+		<type>error</type>
+		<message>停止日は開始日より後の日付を入力して下さい</message>
+	</error>
+	<error code="GEF-000056">
+		<type>error</type>
+		<message>年月の指定が不正です</message>
+	</error>
+	<error code="GEF-000059">
+		<type>error</type>
+		<message>日付の指定が不正です</message>
+	</error>
+	<error code="GEF-000101">
+		<type>error</type>
+		<message>データが重複しています</message>
+	</error>
+	<error code="GEF-000102">
+		<type>error</type>
+		<message>他のユーザが更新しています</message>
+	</error>
+	<error code="GEF-000103">
+		<type>error</type>
+		<message>削除されています</message>
+	</error>
+	<error code="GEF-000105">
+		<type>error</type>
+		<message>明細行を先にセットしようとしました</message>
+	</error>
+	<error code="GEF-000106">
+		<type>error</type>
+		<message>保存対象データがありません</message>
+	</error>
+	<error code="GEF-000107">
+		<type>error</type>
+		<message>他のユーザが使用しているためロックに失敗しました</message>
+	</error>
+	<error code="GEF-000108">
+		<type>error</type>
+		<message>上位の指定が不正です</message>
+	</error>
+	<error code="GEF-000109">
+		<type>error</type>
+		<message>ファイルの取得に失敗しました</message>
+	</error>
+	<error code="GEF-000110">
+		<type>error</type>
+		<message>検索件数が制限を越えました</message>
+	</error>
+	<error code="GEF-000111">
+		<type>error</type>
+		<message>他ユーザの添付ファイルは削除できません</message>
+	</error>
+	<error code="GEF-000112">
+		<type>error</type>
+		<message>添付サイズの上限を超えました</message>
+	</error>
+	<error code="GEF-000113">
+		<type>error</type>
+		<message>該当データがありません</message>
+	</error>
+	<error code="GEF-001000">
+		<type>error</type>
+		<message>ユーザIDまたはパスワードが間違っています</message>
+	</error>
+	<error code="GEF-001001">
+		<type>error</type>
+		<message>不正なアクセスです</message>
+	</error>
+	<error code="GEF-001002">
+		<type>error</type>
+		<message>現在、使用できません</message>
+	</error>
+	<error code="GEF-001003">
+		<type>error</type>
+		<message>再度、ログインして下さい</message>
+	</error>
+	<error code="GEF-001004">
+		<type>error</type>
+		<message>アクセス権限がありません</message>
+	</error>
+	<error code="GEM-000001">
+		<type>error</type>
+		<message>ファイルの取得に失敗しました</message>
+	</error>
+	<error code="GEM-000002">
+		<type>error</type>
+		<message>桁数が制限を超えています</message>
+	</error>
+	<error code="GEM-000003">
+		<type>error</type>
+		<message>入力して下さい</message>
+	</error>
+	<error code="GEM-000004">
+		<type>error</type>
+		<message>式に不備があります</message>
+	</error>
+	<error code="GEM-000005">
+		<type>error</type>
+		<message>定義したロールが存在しません</message>
+	</error>
+	<error code="GEM-000006">
+		<type>error</type>
+		<message>循環参照が発生しました</message>
+	</error>
+	<error code="GEM-000007">
+		<type>error</type>
+		<message>禁止文字が含まれています</message>
+	</error>
+	<error code="GEM-000008">
+		<type>error</type>
+		<message>該当データがありません</message>
+	</error>
+	<error code="GEM-000009">
+		<type>error</type>
+		<message>カテゴリには設定できません</message>
+	</error>
+	<error code="GEM-000011">
+		<type>error</type>
+		<message>データが重複しています</message>
+	</error>
+	<error code="GEM-000012">
+		<type>error</type>
+		<message>アプリケーションタイプが存在しません</message>
+	</error>
+	<error code="GEM-000013">
+		<type>error</type>
+		<message>不正な値が入力されています</message>
+	</error>
+	<error code="GEM-000015">
+		<type>error</type>
+		<message>親メニューIDに紐付くメニュー情報がありません</message>
+	</error>
+	<error code="GEM-000016">
+		<type>error</type>
+		<message>親メニュー情報のアイテムフラグが不正です</message>
+	</error>
+	<error code="GEM-000017">
+		<type>error</type>
+		<message>日付型文字列に不備があります</message>
+	</error>
+	<error code="GEM-000018">
+		<type>error</type>
+		<message>既に削除されています</message>
+	</error>
+	<error code="GEM-000019">
+		<type>error</type>
+		<message>他のユーザが更新しています</message>
+	</error>
+	<error code="GEM-000020">
+		<type>error</type>
+		<message>桁数が不正です。{0}桁ではありません</message>
+	</error>
+	<error code="GEM-000021">
+		<type>error</type>
+		<message>インポート先がカテゴリではありません</message>
+	</error>
+	<error code="GEM-000022">
+		<type>error</type>
+		<message>インポート先がありません</message>
+	</error>
+	<error code="GEM-000023">
+		<type>error</type>
+		<message>ファイルのサイズがゼロです</message>
+	</error>
+	<error code="GEM-000024">
+		<type>error</type>
+		<message>メニュータイプが存在しません</message>
+	</error>
+	<error code="GEM-000025">
+		<type>error</type>
+		<message>親メニューIDの指定が、自身以下の階層です</message>
+	</error>
+	<error code="GEM-000026">
+		<type>error</type>
+		<message>親メニューが存在しません</message>
+	</error>
+	<error code="GEM-000027">
+		<type>error</type>
+		<message>移動できません。送り側と受け側のデータが同じです</message>
+	</error>
+	<error code="GEM-000028">
+		<type>error</type>
+		<message>貼り付け先が存在しません</message>
+	</error>
+	<error code="GEM-000029">
+		<type>error</type>
+		<message>カテゴリには設定できません</message>
+	</error>
+	<error code="GEM-000030">
+		<type>error</type>
+		<message>セルの型が不正です</message>
+	</error>
+</error-messages>

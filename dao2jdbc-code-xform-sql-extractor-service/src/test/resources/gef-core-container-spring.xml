@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util-3.0.xsd
+          ">
+
+<!-- ###########################
+            gef-core
+     ########################### -->
+	<bean id="jp.co.kccs.greenearth.commons.db.GConnectionManagerFactory"
+		  class="jp.co.kccs.greenearth.commons.db.GConnectionManagerFactory">
+		<constructor-arg value="jp.co.kccs.greenearth.commons.db.GDataSourceConnectionManager" />
+		<!-- <constructor-arg value="jp.co.kccs.greenearth.commons.db.GThinDriverConnectionManager" /> -->
+		<constructor-arg value="thread" />
+	</bean>
+	<bean id="jp.co.kccs.greenearth.commons.db.GConnectionManager"
+		  factory-bean="jp.co.kccs.greenearth.commons.db.GConnectionManagerFactory"
+		  factory-method="getInstance"
+		  scope="prototype">
+		<property name="defaultAutoCommit" value="true" />
+	</bean>
+	<bean id="jp.co.kccs.greenearth.commons.jdbc.GJdbcConnectionManager"
+		  class="jp.co.kccs.greenearth.commons.jdbc.GConnectionManagerAdapter"
+		scope="prototype"
+	>
+	</bean>
+
+	<!-- Framework Listener -->
+	<bean id="jp.co.kccs.greenearth.commons.listener.FrameworkListenerIterator" class="jp.co.kccs.greenearth.commons.listener.GFrameworkListenerIterator" scope="prototype">
+		<constructor-arg>
+			<list>
+				<bean class="jp.co.kccs.greenearth.commons.log.log4j.GLog4JInitializer" scope="prototype">
+					<property name="resource" value="/ge-framework.properties" />
+				</bean>
+				<bean class="jp.co.kccs.greenearth.commons.resource.message.GMessageResourceInitializer" scope="prototype"/>
+				<bean class="jp.co.kccs.greenearth.commons.resource.error.GErrorMessageInitializer" scope="prototype"/>
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<!-- Formatter -->
+	<bean id="jp.co.kccs.greenearth.commons.formatter.NumberMultiPatternProvider" class="jp.co.kccs.greenearth.commons.formatter.GPropNumberMultiPatternProvider" />
+	<bean id="jp.co.kccs.greenearth.commons.formatter.GBigDecimalFormatter" class="jp.co.kccs.greenearth.commons.formatter.GMultiPatternBigDecimalFormatter" scope="singleton">
+		<constructor-arg>
+			<ref bean="jp.co.kccs.greenearth.commons.formatter.NumberMultiPatternProvider"/>
+		</constructor-arg>
+	</bean>
+	<bean id="jp.co.kccs.greenearth.commons.formatter.GBigIntegerFormatter" class="jp.co.kccs.greenearth.commons.formatter.GMultiPatternBigIntegerFormatter" scope="singleton">
+		<constructor-arg>
+			<ref bean="jp.co.kccs.greenearth.commons.formatter.NumberMultiPatternProvider"/>
+		</constructor-arg>
+	</bean>
+	<bean id="jp.co.kccs.greenearth.commons.formatter.GBooleanFormatter" class="jp.co.kccs.greenearth.commons.formatter.GBooleanFormatterImpl" scope="singleton" />
+	<bean id="jp.co.kccs.greenearth.commons.formatter.GByteFormatter" class="jp.co.kccs.greenearth.commons.formatter.GMultiPatternByteFormatter" scope="singleton">
+		<constructor-arg>
+			<ref bean="jp.co.kccs.greenearth.commons.formatter.NumberMultiPatternProvider"/>
+		</constructor-arg>
+	</bean>
+	<bean id="jp.co.kccs.greenearth.commons.formatter.GDateFormatter" class="jp.co.kccs.greenearth.commons.formatter.GMultiPatternDateFormatter" scope="singleton">
+		<constructor-arg>
+			<bean class="jp.co.kccs.greenearth.commons.formatter.GPropDateMultiPatternProvider" />
+		</constructor-arg>
+	</bean>
+	<bean id="jp.co.kccs.greenearth.commons.formatter.GDoubleFormatter" class="jp.co.kccs.greenearth.commons.formatter.GMultiPatternDoubleFormatter" scope="singleton">
+		<constructor-arg>
+			<ref bean="jp.co.kccs.greenearth.commons.formatter.NumberMultiPatternProvider"/>
+		</constructor-arg>
+	</bean>
+	<bean id="jp.co.kccs.greenearth.commons.formatter.GFloatFormatter" class="jp.co.kccs.greenearth.commons.formatter.GMultiPatternFloatFormatter" scope="singleton">
+		<constructor-arg>
+			<ref bean="jp.co.kccs.greenearth.commons.formatter.NumberMultiPatternProvider"/>
+		</constructor-arg>
+	</bean>
+	<bean id="jp.co.kccs.greenearth.commons.formatter.GIntegerFormatter" class="jp.co.kccs.greenearth.commons.formatter.GMultiPatternIntegerFormatter" scope="singleton">
+		<constructor-arg>
+			<ref bean="jp.co.kccs.greenearth.commons.formatter.NumberMultiPatternProvider"/>
+		</constructor-arg>
+	</bean>
+	<bean id="jp.co.kccs.greenearth.commons.formatter.GLongFormatter" class="jp.co.kccs.greenearth.commons.formatter.GMultiPatternLongFormatter" scope="singleton">
+		<constructor-arg>
+			<ref bean="jp.co.kccs.greenearth.commons.formatter.NumberMultiPatternProvider"/>
+		</constructor-arg>
+	</bean>
+	<bean id="jp.co.kccs.greenearth.commons.formatter.GShortFormatter" class="jp.co.kccs.greenearth.commons.formatter.GMultiPatternShortFormatter" scope="singleton">
+		<constructor-arg>
+			<ref bean="jp.co.kccs.greenearth.commons.formatter.NumberMultiPatternProvider"/>
+		</constructor-arg>
+	</bean>
+	<bean id="jp.co.kccs.greenearth.commons.formatter.GNumberFormatter" class="jp.co.kccs.greenearth.commons.formatter.GNumberFormatterImpl" scope="singleton">
+		<constructor-arg>
+			<map>
+				<entry key="java.math.BigDecimal">
+					<ref bean="jp.co.kccs.greenearth.commons.formatter.GBigDecimalFormatter"/>
+				</entry>
+				<entry key="java.math.BigInteger">
+					<ref bean="jp.co.kccs.greenearth.commons.formatter.GBigIntegerFormatter"/>
+				</entry>
+				<entry key="java.lang.Double">
+					<ref bean="jp.co.kccs.greenearth.commons.formatter.GDoubleFormatter"/>
+				</entry>
+				<entry key="java.lang.Float">
+					<ref bean="jp.co.kccs.greenearth.commons.formatter.GFloatFormatter"/>
+				</entry>
+				<entry key="java.lang.Integer">
+					<ref bean="jp.co.kccs.greenearth.commons.formatter.GIntegerFormatter"/>
+				</entry>
+				<entry key="java.lang.Long">
+					<ref bean="jp.co.kccs.greenearth.commons.formatter.GLongFormatter"/>
+				</entry>
+				<entry key="java.lang.Short">
+					<ref bean="jp.co.kccs.greenearth.commons.formatter.GShortFormatter"/>
+				</entry>
+				<entry key="java.lang.Byte">
+					<ref bean="jp.co.kccs.greenearth.commons.formatter.GByteFormatter"/>
+				</entry>
+				<entry key="java.lang.Byte">
+					<ref bean="jp.co.kccs.greenearth.commons.formatter.GByteFormatter"/>
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<!-- Framework Context -->
+	<bean id="jp.co.kccs.greenearth.commons.GFrameworkContext" class="jp.co.kccs.greenearth.framework.GLocalContext" scope="prototype" />
+
+	<!-- Message Resource -->
+	<bean id="jp.co.kccs.greenearth.commons.resource.message.MessageResourceManager" class="jp.co.kccs.greenearth.commons.resource.message.GMessageResourceManager" scope="prototype">
+		<constructor-arg>
+			<bean class="jp.co.kccs.greenearth.commons.resource.message.GJk2MessageResourceDao" />
+		</constructor-arg>
+	</bean>
+
+	<!-- Error Message -->
+	<bean id="jp.co.kccs.greenearth.commons.resource.error.ErrorMessageManager" class="jp.co.kccs.greenearth.commons.resource.error.GErrorMessageManager" scope="prototype" >
+		<constructor-arg>
+			<bean class="jp.co.kccs.greenearth.commons.resource.error.GJk2ErrorMessageDao" />
+		</constructor-arg>
+	</bean>
+
+	<!-- Log4J PatternConverter -->
+	<bean name="jp.co.kccs.greenearth.commons.log.log4j.PatternConverterProvider" class="jp.co.kccs.greenearth.commons.log.log4j.GPatternConverterProvider" scope="prototype">
+		<constructor-arg>
+			<map>
+				<entry key="host">
+					<bean class="jp.co.kccs.greenearth.commons.log.log4j.GHostNamePatternConverter" />
+				</entry>
+				<entry key="companycd">
+					<bean class="jp.co.kccs.greenearth.framework.log.log4j.GCompanyCodePatternConverter" />
+				</entry>
+				<entry key="userid">
+					<bean class="jp.co.kccs.greenearth.framework.log.log4j.GUserIdPatternConverter" />
+				</entry>
+				<entry key="menuid">
+					<bean class="jp.co.kccs.greenearth.framework.log.log4j.GMenuIdPatternConverter" />
+				</entry>
+				<entry key="requestid">
+					<bean class="jp.co.kccs.greenearth.framework.xrmi.log.log4j.GRequestIdPatternConverter" />
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+
+</beans>

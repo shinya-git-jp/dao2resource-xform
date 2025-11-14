@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  dao2jdbc-xform-service:
+    image: 282053027333.dkr.ecr.ap-northeast-1.amazonaws.com/kccsjissou/dao2jdbc-xform-service
+    ports:
+      - "8088:8080"
+      - "8089:8081"
+      - "8090:8082"

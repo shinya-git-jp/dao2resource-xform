@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+
+	<!-- ###########################
+                gef-dao
+         ########################### -->
+	<bean name="jp.co.kccs.greenearth.framework.dao.db.GVirtualEntityFactory" class="jp.co.kccs.greenearth.framework.dao.db.GDBVirtualEntityFactory" scope="prototype">
+		<description>コンストラクタによるインジェクションをしないとスタックが溢れます</description>
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.dao.db.GVirtualEntityLoader" />
+	</bean>
+	<!-- 	<bean name="jp.co.kccs.greenearth.framework.dao.db.GVirtualEntityLoader" class="jp.co.kccs.greenearth.framework.dao.db.GDBVirtualEntityLoaderImpl" scope="prototype"/> -->
+	<bean name="jp.co.kccs.greenearth.framework.dao.db.GVirtualEntityLoader" class="jp.co.kccs.greenearth.framework.dao.db.GXFormVirtualEntityLoader" scope="prototype"/>
+	<bean name="jp.co.kccs.greenearth.framework.dao.GVirtualEntity" class="jp.co.kccs.greenearth.framework.dao.db.GXFormVirtualEntity" scope="prototype"/>
+	<bean name="jp.co.kccs.greenearth.framework.dao.db.sql.GSQLExecuter.MySQL" class="jp.co.kccs.greenearth.framework.dao.db.sql.GSQLExecuterMySQLv5" scope="prototype"/>
+	<bean name="jp.co.kccs.greenearth.framework.dao.db.GConditionSet" class="jp.co.kccs.greenearth.framework.dao.db.GConditionSetImpl" scope="prototype"/>
+	<bean name="jp.co.kccs.greenearth.framework.dao.db.GCondition" class="jp.co.kccs.greenearth.framework.dao.db.GConditionImpl" scope="prototype"/>
+	<bean name="jp.co.kccs.greenearth.framework.dao.db.GConditionColumn" class="jp.co.kccs.greenearth.framework.dao.db.GConditionColumnImpl" scope="prototype"/>
+	<bean name="jp.co.kccs.greenearth.framework.dao.db.GSearchParameter" class="jp.co.kccs.greenearth.framework.dao.db.GSearchParameterImpl" scope="prototype"/>
+	<bean name="jp.co.kccs.greenearth.framework.dao.db.repository.GEntityFactory" class="jp.co.kccs.greenearth.framework.dao.db.repository.GDBEntityFactory" scope="prototype">
+		<description>コンストラクタによるインジェクションをしないとスタックが溢れます</description>
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.dao.db.repository.GEntityLoader" />
+	</bean>
+	<bean name="jp.co.kccs.greenearth.framework.dao.db.repository.GEntityLoader" class="jp.co.kccs.greenearth.framework.dao.db.repository.GXFormDBEntityLoaderImpl" scope="prototype"/>
+	<bean name="jp.co.kccs.greenearth.framework.dao.db.repository.GEntity" class="jp.co.kccs.greenearth.framework.dao.db.repository.GDBEntityImpl" scope="prototype"/>
+	<bean name="jp.co.kccs.greenearth.framework.dao.db.sql.GSQLGenerator.MySQL" class="jp.co.kccs.greenearth.framework.dao.db.sql.GJk2SQLGeneratorMySQLv5" scope="prototype"/>
+	<bean name="jp.co.kccs.greenearth.framework.dao.db.repository.GForeignKey" class="jp.co.kccs.greenearth.framework.dao.db.repository.GForeignKeyImpl" scope="prototype"/>
+
+	<bean name="jp.co.kccs.greenearth.framework.dao.db.sql.GSQLExecuter.Oracle" class="jp.co.kccs.greenearth.framework.dao.db.sql.GSQLExecuterOracle10g" scope="prototype"/>
+	<bean name="jp.co.kccs.greenearth.framework.dao.db.sql.GSQLGenerator.Oracle" class="jp.co.kccs.greenearth.framework.dao.db.sql.GDao2SqlGeneratorOracle" scope="prototype"/>
+
+	<bean name="jp.co.kccs.greenearth.framework.dao.db.sql.GSQLExecuter.DB2" class="jp.co.kccs.greenearth.framework.dao.db.sql.GSQLExecuterDB2v9" scope="prototype"/>
+	<bean name="jp.co.kccs.greenearth.framework.dao.db.sql.GSQLGenerator.DB2" class="jp.co.kccs.greenearth.framework.dao.db.sql.GJk2SQLGeneratorDB2v9" scope="prototype"/>
+
+</beans>

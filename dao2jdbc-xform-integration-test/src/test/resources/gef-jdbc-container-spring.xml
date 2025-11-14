@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util-3.0.xsd
+          ">
+
+<!-- ###########################
+          gef-jdbc
+     ########################### -->
+
+	<bean name="jp.co.kccs.greenearth.framework.jdbc.entity.repository.GEntityFactory" class="jp.co.kccs.greenearth.framework.jdbc.entity.repository.GXmlDomEntityFactory">
+		<property name="entityRootDirectoryPath"><value>entity</value></property>
+	</bean>
+ 	<bean name="jp.co.kccs.greenearth.framework.jdbc.entity.GEntitySelect" class="jp.co.kccs.greenearth.framework.jdbc.entity.GEntitySelectImpl" scope="prototype">
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntitySQLGenerator.map" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLExecuter.map" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntityResultSetHandler.map" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.entity.repository.GEntityFactory"/>
+ 	</bean>
+	<bean name="jp.co.kccs.greenearth.framework.jdbc.entity.GEntityInsert" class="jp.co.kccs.greenearth.framework.jdbc.entity.GXFormEntityInsert" scope="prototype">
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntitySQLGenerator.map" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLExecuter.map" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntityResultSetHandler.map" />
+	</bean>
+	<bean name="jp.co.kccs.greenearth.framework.jdbc.entity.GEntityUpdate" class="jp.co.kccs.greenearth.framework.jdbc.entity.GEntityUpdateImpl" scope="prototype">
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntitySQLGenerator.map" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLExecuter.map" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntityResultSetHandler.map" />
+	</bean>
+	<bean name="jp.co.kccs.greenearth.framework.jdbc.entity.GEntityDelete" class="jp.co.kccs.greenearth.framework.jdbc.entity.GEntityDeleteImpl" scope="prototype">
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntitySQLGenerator.map" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLExecuter.map" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntityResultSetHandler.map" />
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntitySQLGenerator.oracle19c"
+		class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntitySQLGeneratorOracle19c">
+		<qualifier value="oracle19c" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.oracle19c" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GExpressionConverter.oracle19c" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GJoinPartGenerator.oracle19c" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GLimitPartGenerator.oracle19c" />
+	</bean>
+
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntitySQLGenerator.mysql8_0"
+		class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntitySQLGeneratorMySQL8_0">
+		<qualifier value="mysql8_0" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.mysql8_0" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GExpressionConverter.mysql8_0" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GJoinPartGenerator.mysql8_0" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GLimitPartGenerator.mysql8_0" />
+	</bean>
+
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntitySQLGenerator.postgresql13_2"
+		class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntitySQLGeneratorPostgreSQL13_2">
+		<qualifier value="postgresql13_2" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.postgresql13_2" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GExpressionConverter.postgresql13_2" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GJoinPartGenerator.postgresql13_2" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GLimitPartGenerator.postgresql13_2" />
+	</bean>
+ 	<util:map id="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntitySQLGenerator.map">
+		<entry key="oracle19c">
+			<ref bean="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntitySQLGenerator.oracle19c"/>
+		</entry>
+		<entry key="mysql8_0">
+			<ref bean="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntitySQLGenerator.mysql8_0"/>
+		</entry>
+		<entry key="postgresql13_2">
+			<ref bean="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntitySQLGenerator.postgresql13_2"/>
+		</entry>
+	</util:map>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GJoinPartGenerator.oracle19c"
+		class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GRoutingJoinPartGenerator">
+		<qualifier value="oracle19c" />
+		<constructor-arg>
+			<map>
+				<entry key="jp.co.kccs.greenearth.framework.jdbc.entity.GForeignKeyJoinData">
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GForeignKeyJoinPartGenerator">
+						<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.oracle19c" />
+					</bean>
+				</entry>
+				<entry key="jp.co.kccs.greenearth.framework.jdbc.entity.GExpressionJoinData">
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GExpressionJoinPartGenerator">
+						<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.oracle19c" />
+						<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GExpressionConverter.oracle19c" />
+					</bean>
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GJoinPartGenerator.mysql8_0"
+		class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GRoutingJoinPartGenerator">
+		<qualifier value="mysql8_0" />
+		<constructor-arg>
+			<map>
+				<entry key="jp.co.kccs.greenearth.framework.jdbc.entity.GForeignKeyJoinData">
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GForeignKeyJoinPartGenerator">
+						<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.mysql8_0" />
+					</bean>
+				</entry>
+				<entry key="jp.co.kccs.greenearth.framework.jdbc.entity.GExpressionJoinData">
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GExpressionJoinPartGenerator">
+						<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.mysql8_0" />
+						<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GExpressionConverter.mysql8_0" />
+					</bean>
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GJoinPartGenerator.postgresql13_2"
+		class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GRoutingJoinPartGenerator">
+		<qualifier value="postgresql13_2" />
+		<constructor-arg>
+			<map>
+				<entry key="jp.co.kccs.greenearth.framework.jdbc.entity.GForeignKeyJoinData">
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GForeignKeyJoinPartGenerator">
+						<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.postgresql13_2" />
+					</bean>
+				</entry>
+				<entry key="jp.co.kccs.greenearth.framework.jdbc.entity.GExpressionJoinData">
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GExpressionJoinPartGenerator">
+						<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.postgresql13_2" />
+						<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GExpressionConverter.postgresql13_2" />
+					</bean>
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+	<!--
+		NOTE: GSQLPartsGeneratorとExpressionConverterで循環参照の関係になっています。
+	-->
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.oracle19c"
+		class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGeneratorImpl">
+		<qualifier value="oracle19c" />
+		<property name="expressionConverter" ref="jp.co.kccs.greenearth.framework.jdbc.sql.GExpressionConverter.oracle19c" />
+		<property name="functionGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.sql.GFunctionGenerator.oracle19c" />
+		<constructor-arg>
+			<map>
+				<entry key="RandomID" >
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GRandomIDGenerator" />
+				</entry>
+				<entry key="RegisteredDate" >
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GRegisteredDateGenerator" >
+						<property name="functionGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.sql.GFunctionGenerator.oracle19c" />
+					</bean>
+				</entry>
+				<entry key="UpdatedDate" >
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GUpdatedDateGenerator" >
+						<property name="functionGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.sql.GFunctionGenerator.oracle19c" />
+					</bean>
+				</entry>
+				<entry key="ExclusiveKey" >
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GExclusiveKeyGenerator" />
+				</entry>
+			</map>
+		</constructor-arg>
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GReservedWordEscaper.oracle19c" />
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.mysql8_0"
+		class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGeneratorImpl">
+		<qualifier value="mysql8_0" />
+		<property name="expressionConverter" ref="jp.co.kccs.greenearth.framework.jdbc.sql.GExpressionConverter.mysql8_0" />
+		<property name="functionGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.sql.GFunctionGenerator.mysql8_0" />
+		<constructor-arg>
+			<map>
+				<entry key="RandomID" >
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GRandomIDGenerator" />
+				</entry>
+				<entry key="RegisteredDate" >
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GRegisteredDateGenerator" >
+						<property name="functionGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.sql.GFunctionGenerator.mysql8_0" />
+					</bean>
+				</entry>
+				<entry key="UpdatedDate" >
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GUpdatedDateGenerator" >
+						<property name="functionGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.sql.GFunctionGenerator.mysql8_0" />
+					</bean>
+				</entry>
+				<entry key="ExclusiveKey" >
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GExclusiveKeyGenerator" />
+				</entry>
+			</map>
+		</constructor-arg>
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GReservedWordEscaper.mysql8_0" />
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.postgresql13_2"
+		class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGeneratorImpl">
+		<qualifier value="postgresql13_2" />
+		<property name="expressionConverter" ref="jp.co.kccs.greenearth.framework.jdbc.sql.GExpressionConverter.postgresql13_2" />
+		<property name="functionGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.sql.GFunctionGenerator.postgresql13_2" />
+		<constructor-arg>
+			<map>
+				<entry key="RandomID" >
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GRandomIDGenerator" />
+				</entry>
+				<entry key="RegisteredDate" >
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GRegisteredDateGenerator" >
+						<property name="functionGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.sql.GFunctionGenerator.postgresql13_2" />
+					</bean>
+				</entry>
+				<entry key="UpdatedDate" >
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GUpdatedDateGenerator" >
+						<property name="functionGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.sql.GFunctionGenerator.postgresql13_2" />
+					</bean>
+				</entry>
+				<entry key="ExclusiveKey" >
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GExclusiveKeyGenerator" />
+				</entry>
+			</map>
+		</constructor-arg>
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GReservedWordEscaper.postgresql13_2" />
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntityResultSetHandler.oracle19c"
+		class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntityResultSetHandlerOracle19c">
+		<qualifier value="oracle19c" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLTypeHandler.oracle19c" />
+	</bean>
+
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntityResultSetHandler.mysql8_0"
+		class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntityResultSetHandlerMySQL8_0">
+		<qualifier value="mysql8_0" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLTypeHandler.mysql8_0" />
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntityResultSetHandler.postgresql13_2"
+		class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntityResultSetHandlerPostgreSQL13_2">
+		<qualifier value="postgresql13_2" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLTypeHandler.postgresql13_2" />
+	</bean>
+ 	<util:map id="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntityResultSetHandler.map">
+		<entry key="oracle19c">
+			<ref bean="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntityResultSetHandler.oracle19c"/>
+		</entry>
+		<entry key="mysql8_0">
+			<ref bean="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntityResultSetHandler.mysql8_0"/>
+		</entry>
+		<entry key="postgresql13_2">
+			<ref bean="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GEntityResultSetHandler.postgresql13_2"/>
+		</entry>
+	</util:map>
+ 	<bean name="jp.co.kccs.greenearth.framework.jdbc.direct.GDirectSelect" class="jp.co.kccs.greenearth.framework.jdbc.direct.GDirectSelectImpl" scope="prototype" >
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectSQLGenerator.map" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLExecuter.map" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectResultSetHandler.map" />
+		<!-- NOTE コンストラクタにデータソース(GDatabase)を渡さなければなりません。 -->
+		<constructor-arg ref="MainDataSource" />
+	</bean>
+	<bean name="jp.co.kccs.greenearth.framework.jdbc.direct.GDirectUpdate" class="jp.co.kccs.greenearth.framework.jdbc.direct.GDirectUpdateImpl" scope="prototype" >
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectSQLGenerator.map" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLExecuter.map" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectResultSetHandler.map" />
+		<!-- NOTE コンストラクタにデータソース(GDatabase)を渡さなければなりません。 -->
+		<constructor-arg ref="MainDataSource" />
+	</bean>
+	<bean name="jp.co.kccs.greenearth.framework.jdbc.direct.GDirectProcedure" class="jp.co.kccs.greenearth.framework.jdbc.direct.GDirectProcedureImpl" scope="prototype" >
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectSQLGenerator.map" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLExecuter.map" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectResultSetHandler.map" />
+		<!-- NOTE コンストラクタにデータソース(GDatabase)を渡さなければなりません。 -->
+		<constructor-arg ref="MainDataSource" />
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectSQLGenerator.oracle19c"
+		class="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectSQLGeneratorOracle19c">
+		<qualifier value="oracle19c" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GExpressionConverter.oracle19c" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GLimitPartGenerator.oracle19c" />
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectSQLGenerator.mysql8_0"
+		class="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectSQLGeneratorMySQL8_0">
+		<qualifier value="mysql8_0" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GExpressionConverter.mysql8_0" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GLimitPartGenerator.mysql8_0" />
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectSQLGenerator.postgresql13_2"
+		class="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectSQLGeneratorPostgreSQL13_2">
+		<qualifier value="postgresql13_2" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GExpressionConverter.postgresql13_2" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GLimitPartGenerator.postgresql13_2" />
+	</bean>
+	<util:map id="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectSQLGenerator.map">
+		<entry key="oracle19c">
+			<ref bean="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectSQLGenerator.oracle19c"/>
+		</entry>
+		<entry key="mysql8_0">
+			<ref bean="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectSQLGenerator.mysql8_0"/>
+		</entry>
+		<entry key="postgresql13_2">
+			<ref bean="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectSQLGenerator.postgresql13_2"/>
+		</entry>
+	</util:map>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectResultSetHandler.oracle19c"
+		class="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectResultSetHandler">
+		<qualifier value="oracle19c" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLTypeHandler.oracle19c" />
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectResultSetHandler.mysql8_0"
+		class="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectResultSetHandler">
+		<qualifier value="mysql8_0" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLTypeHandler.mysql8_0" />
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectResultSetHandler.postgresql13_2"
+		class="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectResultSetHandler">
+		<qualifier value="postgresql13_2" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLTypeHandler.postgresql13_2" />
+	</bean>
+	<util:map id="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectResultSetHandler.map">
+		<entry key="oracle19c">
+			<ref bean="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectResultSetHandler.oracle19c"/>
+		</entry>
+		<entry key="mysql8_0">
+			<ref bean="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectResultSetHandler.mysql8_0"/>
+		</entry>
+		<entry key="postgresql13_2">
+			<ref bean="jp.co.kccs.greenearth.framework.jdbc.direct.sql.GDirectResultSetHandler.postgresql13_2"/>
+		</entry>
+	</util:map>
+	<bean name="jp.co.kccs.greenearth.framework.jdbc.GQueryAssistantsCore" class="jp.co.kccs.greenearth.framework.jdbc.GQueryAssistantsCore">
+		<constructor-arg><value>jp/co/kccs/greenearth/framework/jdbc</value></constructor-arg>
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.entity.repository.GEntityFactory"/>
+	</bean>
+	<bean name="jp.co.kccs.greenearth.framework.jdbc.GQueryBuilder" class="jp.co.kccs.greenearth.framework.jdbc.GQueryBuilderImpl">
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.GQueryAssistantsCore"/>
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLExecuter.oracle19c"
+		class="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLExecuterOracle19c">
+		<qualifier value="oracle19c" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLTypeHandler.oracle19c" />
+		<constructor-arg>
+			<value>2000</value>
+		</constructor-arg>
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GBindParamConverterFactory"/>
+	</bean>
+
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLExecuter.mysql8_0"
+		class="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLExecuterMySQL8_0">
+		<qualifier value="mysql8_0" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLTypeHandler.mysql8_0" />
+		<constructor-arg>
+			<value>2000</value>
+		</constructor-arg>
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GBindParamConverterFactory"/>
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLExecuter.postgresql13_2"
+		class="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLExecuterPostgreSQL13_2">
+		<qualifier value="postgresql13_2" />
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLTypeHandler.postgresql13_2" />
+		<constructor-arg>
+			<value>2000</value>
+		</constructor-arg>
+		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.sql.GBindParamConverterFactory"/>
+	</bean>
+ 	<util:map id="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLExecuter.map">
+		<entry key="oracle19c">
+			<ref bean="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLExecuter.oracle19c"/>
+		</entry>
+		<entry key="mysql8_0">
+			<ref bean="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLExecuter.mysql8_0"/>
+		</entry>
+		<entry key="postgresql13_2">
+			<ref bean="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLExecuter.postgresql13_2"/>
+		</entry>
+	</util:map>
+	<bean name="jp.co.kccs.greenearth.framework.jdbc.sql.GBindParamConverterFactory" class="jp.co.kccs.greenearth.framework.jdbc.sql.GBindParamConverterFactoryImpl">
+		<constructor-arg>
+			<list>
+				<bean class="jp.co.kccs.greenearth.framework.jdbc.sql.GBindParamConverterImpl"/>
+			</list>
+		</constructor-arg>
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.sql.GExpressionConverter.oracle19c"
+		class="jp.co.kccs.greenearth.framework.jdbc.sql.GRoutingExpressionConverter">
+		<qualifier value="oracle19c" />
+		<constructor-arg>
+			<map>
+				<entry key="jp.co.kccs.greenearth.framework.jdbc.GStringExpression">
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.sql.GStringExpressionConverter" scope="singleton">
+						<property name="sqlPartsGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.oracle19c" />
+						<property name="functionGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.sql.GFunctionGenerator.oracle19c" />
+					</bean>
+				</entry>
+				<entry key="jp.co.kccs.greenearth.framework.jdbc.GFileExpression">
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.sql.GMVELFileExpressionConverter" scope="singleton">
+						<property name="sqlPartsGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.oracle19c" />
+						<property name="functionGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.sql.GFunctionGenerator.oracle19c" />
+						<constructor-arg>
+							<value>csWindows31J</value>
+						</constructor-arg>
+					</bean>
+				</entry>
+				<entry key="jp.co.kccs.greenearth.framework.jdbc.GAssembledFactorExpression">
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.sql.GAssembledFactorExpressionConverter" scope="singleton">
+						<property name="sqlPartsGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.oracle19c" />
+						<property name="functionGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.sql.GFunctionGenerator.oracle19c" />
+					</bean>
+				</entry>
+				<entry key="jp.co.kccs.greenearth.framework.jdbc.entity.GPKWhereExpression">
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GPKWhereExpressionConverter" scope="singleton">
+						<property name="sqlPartsGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.oracle19c" />
+					</bean>
+				</entry>
+				<entry key="jp.co.kccs.greenearth.framework.jdbc.entity.GUKWhereExpression">
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GUKWhereExpressionConverter" scope="singleton">
+						<property name="sqlPartsGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.oracle19c" />
+					</bean>
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.sql.GExpressionConverter.mysql8_0"
+		class="jp.co.kccs.greenearth.framework.jdbc.sql.GRoutingExpressionConverter">
+		<qualifier value="mysql8_0" />
+		<constructor-arg>
+			<map>
+				<entry key="jp.co.kccs.greenearth.framework.jdbc.GStringExpression">
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.sql.GStringExpressionConverter" scope="singleton">
+						<property name="sqlPartsGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.mysql8_0" />
+						<property name="functionGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.sql.GFunctionGenerator.mysql8_0" />
+					</bean>
+				</entry>
+				<entry key="jp.co.kccs.greenearth.framework.jdbc.GFileExpression">
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.sql.GMVELFileExpressionConverter" scope="singleton">
+						<property name="sqlPartsGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.mysql8_0" />
+						<property name="functionGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.sql.GFunctionGenerator.mysql8_0" />
+						<constructor-arg>
+							<value>csWindows31J</value>
+						</constructor-arg>
+					</bean>
+				</entry>
+				<entry key="jp.co.kccs.greenearth.framework.jdbc.GAssembledFactorExpression">
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.sql.GAssembledFactorExpressionConverter" scope="singleton">
+						<property name="sqlPartsGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.mysql8_0" />
+						<property name="functionGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.sql.GFunctionGenerator.mysql8_0" />
+					</bean>
+				</entry>
+				<entry key="jp.co.kccs.greenearth.framework.jdbc.entity.GPKWhereExpression">
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GPKWhereExpressionConverter" scope="singleton">
+						<property name="sqlPartsGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.mysql8_0" />
+					</bean>
+				</entry>
+				<entry key="jp.co.kccs.greenearth.framework.jdbc.entity.GUKWhereExpression">
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GUKWhereExpressionConverter" scope="singleton">
+						<property name="sqlPartsGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.mysql8_0" />
+					</bean>
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.sql.GExpressionConverter.postgresql13_2"
+		class="jp.co.kccs.greenearth.framework.jdbc.sql.GRoutingExpressionConverter">
+		<qualifier value="postgresql13_2" />
+		<constructor-arg>
+			<map>
+				<entry key="jp.co.kccs.greenearth.framework.jdbc.GStringExpression">
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.sql.GStringExpressionConverter" scope="singleton">
+						<property name="sqlPartsGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.postgresql13_2" />
+						<property name="functionGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.sql.GFunctionGenerator.postgresql13_2" />
+					</bean>
+				</entry>
+				<entry key="jp.co.kccs.greenearth.framework.jdbc.GFileExpression">
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.sql.GMVELFileExpressionConverter" scope="singleton">
+						<property name="sqlPartsGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.postgresql13_2" />
+						<property name="functionGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.sql.GFunctionGenerator.postgresql13_2" />
+						<constructor-arg>
+							<value>csWindows31J</value>
+						</constructor-arg>
+					</bean>
+				</entry>
+				<entry key="jp.co.kccs.greenearth.framework.jdbc.GAssembledFactorExpression">
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.sql.GAssembledFactorExpressionConverter" scope="singleton">
+						<property name="sqlPartsGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.postgresql13_2" />
+						<property name="functionGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.sql.GFunctionGenerator.postgresql13_2" />
+					</bean>
+				</entry>
+				<entry key="jp.co.kccs.greenearth.framework.jdbc.entity.GPKWhereExpression">
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GPKWhereExpressionConverter" scope="singleton">
+						<property name="sqlPartsGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.postgresql13_2" />
+					</bean>
+				</entry>
+				<entry key="jp.co.kccs.greenearth.framework.jdbc.entity.GUKWhereExpression">
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GUKWhereExpressionConverter" scope="singleton">
+						<property name="sqlPartsGenerator" ref="jp.co.kccs.greenearth.framework.jdbc.entity.sql.GSQLPartsGenerator.postgresql13_2" />
+					</bean>
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.sql.GFunctionGenerator.oracle19c"
+		class="jp.co.kccs.greenearth.framework.jdbc.sql.GFunctionGeneratorOracle19c">
+		<qualifier value="oracle19c" />
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.sql.GFunctionGenerator.mysql8_0"
+		class="jp.co.kccs.greenearth.framework.jdbc.sql.GFunctionGeneratorMySQL8_0">
+		<qualifier value="mysql8_0" />
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.sql.GFunctionGenerator.postgresql13_2"
+		class="jp.co.kccs.greenearth.framework.jdbc.sql.GFunctionGeneratorPostgreSQL13_2">
+		<qualifier value="postgresql13_2" />
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLTypeHandler.oracle19c"
+		class="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLTypeHandlerOracle19c">
+		<qualifier value="oracle19c" />
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLTypeHandler.mysql8_0"
+		class="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLTypeHandlerMySQL8_0">
+		<qualifier value="mysql8_0" />
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLTypeHandler.postgresql13_2"
+		class="jp.co.kccs.greenearth.framework.jdbc.sql.GSQLTypeHandlerPostgreSQL13_2">
+		<qualifier value="postgresql13_2" />
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.sql.GReservedWordEscaper.oracle19c"
+		class="jp.co.kccs.greenearth.framework.jdbc.sql.GReservedWordEscaperOracle19c">
+		<qualifier value="oracle19c" />
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.sql.GReservedWordEscaper.mysql8_0"
+		class="jp.co.kccs.greenearth.framework.jdbc.sql.GReservedWordEscaperMySQL8_0">
+		<qualifier value="mysql8_0" />
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.sql.GReservedWordEscaper.postgresql13_2"
+		class="jp.co.kccs.greenearth.framework.jdbc.sql.GReservedWordEscaperPostgreSQL13_2">
+		<qualifier value="postgresql13_2" />
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.sql.GLimitPartGenerator.oracle19c"
+		class="jp.co.kccs.greenearth.framework.jdbc.sql.GLimitPartGeneratorOracle19c">
+		<qualifier value="oracle19c" />
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.sql.GLimitPartGenerator.mysql8_0"
+		class="jp.co.kccs.greenearth.framework.jdbc.sql.GLimitPartGeneratorMySQL8_0">
+		<qualifier value="mysql8_0" />
+	</bean>
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.sql.GLimitPartGenerator.postgresql13_2"
+		class="jp.co.kccs.greenearth.framework.jdbc.sql.GLimitPartGeneratorPostgreSQL13_2">
+		<qualifier value="postgresql13_2" />
+	</bean>
+ 	<bean name="jp.co.kccs.greenearth.framework.jdbc.orm.GORMapper" class="jp.co.kccs.greenearth.framework.jdbc.orm.GORMapperImpl" scope="singleton">
+ 		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.orm.entity.GEntityMapperFactory"/>
+ 		<constructor-arg ref="jp.co.kccs.greenearth.framework.jdbc.orm.GDTOMapperFactory"/>
+ 	</bean>
+	<bean name="jp.co.kccs.greenearth.framework.jdbc.orm.entity.GEntityMapperFactory" class="jp.co.kccs.greenearth.framework.jdbc.orm.entity.GEntityMapperFactory" scope="singleton" >
+		<property name="usePropertyNameBind"><value>false</value></property>
+	</bean>
+	<bean name="jp.co.kccs.greenearth.framework.jdbc.orm.GDTOMapperFactory" class="jp.co.kccs.greenearth.framework.jdbc.orm.GDTOMapperFactory" scope="singleton" >
+		<property name="usePropertyNameBind"><value>false</value></property>
+	</bean>
+
+	<!--
+	<bean id="MainDataSource" class="jp.co.kccs.greenearth.framework.jdbc.GDatabaseImpl">
+		<property name="name" value="DataSourceMySQL8_0" />
+		<property name="dataSource" value="jdbc/JavaKitDataSource" />
+		<property name="schema" value="GEF_RIA_INTEGRATION" />
+		<property name="dbType" value="mysql8_0" />
+	</bean>
+	-->
+	<bean id="jp.co.kccs.greenearth.framework.jdbc.orm.GTypeMapperFactory" class="jp.co.kccs.greenearth.framework.jdbc.orm.GTypeMapperFactoryImpl">
+		<constructor-arg>
+  			<util:map>
+<!--  NOTE [Setting preferences] keyには完全修飾クラス名を設定してください。
+				<entry key="java.lang.Object">
+					<bean class="jp.co.kccs.greenearth.framework.jdbc.orm.GObjectTypeMapper" />
+				</entry>
+-->
+			</util:map>
+		</constructor-arg>
+	</bean>
+
+
+	<bean name="MainDataSource" class="jp.co.kccs.greenearth.framework.jdbc.GDatabaseImpl">
+		<property name="name" value="MainDataSource" />
+		<property name="dataSource" value="jdbc/JavaKitDataSource" />
+		<property name="schema" value="" />
+		<property name="dbType" value="" />
+	</bean>
+
+</beans>

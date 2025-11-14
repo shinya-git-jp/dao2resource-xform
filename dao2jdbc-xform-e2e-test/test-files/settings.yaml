@@ -1,0 +1,68 @@
+- id: 9f61f9d3-3248-44f4-9388-813f3dce8e4c
+  savedName: test3
+  db:
+    url: >-
+      jdbc:mysql://gef-unit-mysql8027.c3cxjzdf21mz.ap-northeast-1.rds.amazonaws.com:3306/gef_jdbc_tool?zeroDateTimeBehavior=convertToNull&useUnicode=true&useSSL=false&serverTimezone=GMT%2B9
+    dbType: mysql
+    schema: gef_jdbc_tool
+    username: geframe2
+    password: Kccs0000
+  locale:
+    current: en
+    mapping:
+      country1: en
+      country2: ja
+      country3: zh
+      country4: ""
+      country5: ""
+  reservedWords:
+    primaryKey: objectID
+    exclusiveKey: ExclusiveFG
+    companyCodeKey: CompanyCD
+    insertedUserIDKey: RegisteredPerson
+    insertedDateKey: RegisteredDT
+    updatedUserIDKey: UpdatedPerson
+    updatedDateKey: UpdatedDT
+  condition:
+    encoding: UTF-8
+  transform:
+    encoding: UTF-8
+    forceAliasColumn: false
+    useForeignKey: false
+    useExpMap: false
+    queryMode: ENTITY_QUERY
+  savedTime: 5/13/2025, 2:03:29 PM
+- id: e975918d-0538-43e4-b787-c4ea60f5e2de
+  savedName: test2
+  db:
+    url: >-
+      jdbc:mysql://gef-unit-mysql8027.c3cxjzdf21mz.ap-northeast-1.rds.amazonaws.com:3306/gef_jdbc_tool?zeroDateTimeBehavior=convertToNull&useUnicode=true&useSSL=false&serverTimezone=GMT%2B9
+    dbType: mysql
+    schema: gef_jdbc_tool
+    username: geframe
+    password: Kccs0000
+  locale:
+    current: en
+    mapping:
+      country1: en
+      country2: ja
+      country3: zh
+      country4: ""
+      country5: ""
+  reservedWords:
+    primaryKey: objectID
+    exclusiveKey: ExclusiveFG
+    companyCodeKey: CompanyCD
+    insertedUserIDKey: RegisteredPerson
+    insertedDateKey: RegisteredDT
+    updatedUserIDKey: UpdatedPerson
+    updatedDateKey: UpdatedDT
+  condition:
+    encoding: UTF-8
+  transform:
+    encoding: UTF-8
+    forceAliasColumn: false
+    useForeignKey: false
+    useExpMap: false
+    queryMode: ENTITY_QUERY
+  savedTime: 5/13/2025, 2:03:13 PM

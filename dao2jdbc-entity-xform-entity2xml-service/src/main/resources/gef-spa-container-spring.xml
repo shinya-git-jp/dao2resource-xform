@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util-3.0.xsd
+          ">
+
+	<!-- ########################### gef-spa ########################### -->
+	<bean
+		name="jp.co.kccs.greenearth.framework.web.resource.registry.GEndpointResourceRegistry"
+		class="jp.co.kccs.greenearth.framework.web.resource.registry.GEndpointResourceRegistryImpl"
+		scope="singleton">
+	</bean>
+	<bean
+		name="jp.co.kccs.greenearth.framework.web.server.GServerRuntime"
+		class="jp.co.kccs.greenearth.framework.web.server.internal.GServerRuntimeImpl"
+		scope="prototype">
+	</bean>
+	<bean
+		name="jp.co.kccs.greenearth.framework.web.server.GResponseProcessor"
+		class="jp.co.kccs.greenearth.framework.web.server.internal.GResponseProcessorImpl"
+		scope="singleton">
+	</bean>
+	<bean
+		name="jp.co.kccs.greenearth.framework.web.server.handle.GEndpointHandleResolver"
+		class="jp.co.kccs.greenearth.framework.web.server.handle.GEndpointHandleResolverImpl"
+		scope="singleton">
+	</bean>
+	<bean
+		name="jp.co.kccs.greenearth.framework.web.server.handle.GEndpointInvoker"
+		class="jp.co.kccs.greenearth.framework.web.server.handle.GEndpointInvokerImpl"
+		scope="prototype">
+	</bean>
+	<bean
+		name="jp.co.kccs.greenearth.framework.web.resource.identifier.GResourceIdentifierGeneratorProvider"
+		class="jp.co.kccs.greenearth.framework.web.resource.identifier.GResourceIdentifierGeneratorProviderImpl"
+		scope="singleton">
+	</bean>
+	<bean
+		name="jp.co.kccs.greenearth.framework.web.server.converter.GResponseTypeConverterProvider"
+		class="jp.co.kccs.greenearth.framework.web.server.converter.GResponseTypeConverterProviderImpl"
+		scope="singleton">
+	</bean>
+	<bean
+		name="jp.co.kccs.greenearth.framework.web.resource.extract.GResourceKeyPairProvider"
+		class="jp.co.kccs.greenearth.framework.web.resource.extract.GResourceKeyPairProviderImpl"
+		scope="singleton">
+	</bean>
+	<bean
+		name="jp.co.kccs.greenearth.commons.provider.GProviderService"
+		class="jp.co.kccs.greenearth.framework.web.server.internal.GJerseyProviderService"
+		scope="singleton" />
+	<bean
+		name="jp.co.kccs.greenearth.framework.web.http.context.GHttpContext"
+		class="jp.co.kccs.greenearth.framework.web.http.context.GHttpContextImpl"
+		scope="prototype" />
+	<bean
+		name="jp.co.kccs.greenearth.framework.web.server.handle.GMethodParameterValueResolverProvider"
+		class="jp.co.kccs.greenearth.framework.web.server.handle.GMethodParameterValueResolverProviderImpl"
+		scope="singleton" />
+	<bean
+		name="jp.co.kccs.greenearth.framework.web.server.handle.GMethodParameterValuesCreator"
+		class="jp.co.kccs.greenearth.framework.web.server.handle.internal.GMethodParameterValuesCreatorImpl"
+		scope="singleton" />
+	<bean
+		name="jp.co.kccs.greenearth.framework.web.filter.GFilterChainProxyConfiguratorProvider"
+		class="jp.co.kccs.greenearth.framework.web.filter.GFilterChainProxyConfiguratorProviderImpl"
+		scope="singleton"/>
+	<bean
+		name="jp.co.kccs.greenearth.framework.web.resource.extract.GBodyValuesExtractorProvider"
+		class="jp.co.kccs.greenearth.framework.web.resource.extract.GBodyValuesExtractorProviderImpl"
+		scope="singleton"/>
+	<bean
+		name="jp.co.kccs.greenearth.framework.web.server.internal.GResponseErrorMapper"
+		class="jp.co.kccs.greenearth.framework.web.server.internal.GResponseErrorMapperImpl"
+		scope="singleton"/>
+	<bean
+		name="jp.co.kccs.greenearth.framework.web.configuration.GJaxrsResourceConfigBinderFactory"
+		class="jp.co.kccs.greenearth.framework.web.configuration.GJaxrsResourceConfigBinderFactoryImpl"
+		scope="singleton"/>
+	<bean
+		name="jp.co.kccs.greenearth.framework.web.server.GEndpointResourceMatcher"
+		class="jp.co.kccs.greenearth.framework.web.server.GEndpointResourceMatcherImpl"
+		scope="singleton"/>
+</beans>

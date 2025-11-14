@@ -1,0 +1,1 @@
+export const DEFAULT_URL = 'http://dao2jdbc-xform.tool.jissou.kccs.local/';

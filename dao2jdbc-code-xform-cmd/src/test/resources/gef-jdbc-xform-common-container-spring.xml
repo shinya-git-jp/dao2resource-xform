@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util-3.0.xsd
+          ">
+    <bean id="jp.co.kccs.greenearth.xform.jdbc.common.GCommonSettingParser"
+          class="jp.co.kccs.greenearth.xform.jdbc.common.GCommonSettingFilePathParser" scope="singleton"/>
+    <bean id="jp.co.kccs.greenearth.xform.jdbc.common.GXFormEntityBuilder"
+          class="jp.co.kccs.greenearth.xform.jdbc.common.GXFormEntityBuilderImpl" scope="prototype"/>
+
+    <bean class="jp.co.kccs.greenearth.xform.jdbc.common.GDataSourceBuilder">
+        <constructor-arg>
+            <map>
+                <entry key="java:comp/env/jdbc/JavaKitDataSource"><ref bean="org.apache.commons.dbcp2.BasicDataSource"/></entry>
+                <entry key="java:comp/env/jdbc/JavaKitDataSourceMysql"><ref bean="org.apache.commons.dbcp2.BasicDataSourceMysql"/></entry>
+                <entry key="java:comp/env/jdbc/JavaKitDataSourceOracle"><ref bean="org.apache.commons.dbcp2.BasicDataSourceOracle"/></entry>
+                <entry key="java:comp/env/jdbc/JavaKitDataSourceDB2"><ref bean="org.apache.commons.dbcp2.BasicDataSourceDB2"/></entry>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <bean id="org.apache.commons.dbcp2.BasicDataSource"
+          class="org.apache.commons.dbcp2.BasicDataSource">
+        <property name="driverClassName" value="" />
+        <property name="url" value="" />
+        <property name="username" value="" />
+        <property name="password" value="" />
+        <property name="maxTotal" value="100" />
+        <property name="maxWaitMillis" value="10000" />
+        <property name="removeAbandonedTimeout" value="300" />
+    </bean>
+
+    <bean id="org.apache.commons.dbcp2.BasicDataSourceMysql"
+          class="org.apache.commons.dbcp2.BasicDataSource">
+        <property name="driverClassName" value="" />
+        <property name="url" value="" />
+        <property name="username" value="" />
+        <property name="password" value="" />
+        <property name="maxTotal" value="100" />
+        <property name="maxWaitMillis" value="10000" />
+        <property name="removeAbandonedTimeout" value="300" />
+    </bean>
+
+    <bean id="org.apache.commons.dbcp2.BasicDataSourceOracle"
+          class="org.apache.commons.dbcp2.BasicDataSource">
+        <property name="driverClassName" value="" />
+        <property name="url" value="" />
+        <property name="username" value="" />
+        <property name="password" value="" />
+        <property name="maxTotal" value="100" />
+        <property name="maxWaitMillis" value="10000" />
+        <property name="removeAbandonedTimeout" value="300" />
+    </bean>
+
+    <bean id="org.apache.commons.dbcp2.BasicDataSourceDB2"
+          class="org.apache.commons.dbcp2.BasicDataSource">
+        <property name="driverClassName" value="" />
+        <property name="url" value="" />
+        <property name="username" value="" />
+        <property name="password" value="" />
+        <property name="maxTotal" value="100" />
+        <property name="maxWaitMillis" value="10000" />
+        <property name="removeAbandonedTimeout" value="300" />
+    </bean>
+</beans>

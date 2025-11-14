@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dataset>
+    
+    <SLOCALIZATION COUNTRY1="junitGetMessage" OBJECTID="9507E3FD48FA48D28089A0BFDDC8B31C"/>
+    <SLOCALIZATION COUNTRY1="junitGetMessageWithParams {0} {1}" OBJECTID="092CB25A54864970B87504A6EDA3BD47"/>
+    <SLOCALIZATION COUNTRY1="junitGetMessageWithLocale_EN" COUNTRY2="junitGetMessageWithLocale_JA" COUNTRY3="junitGetMessageWithLocale_ZH" OBJECTID="92148518D4CF41BDA449547D34A1851E"/>
+    <SLOCALIZATION COUNTRY1="junitGetMessageWithParamsAndLocale_EN {0} {1}" COUNTRY2="junitGetMessageWithParamsAndLocale_JA {0} {1}" COUNTRY3="junitGetMessageWithParamsAndLocale_ZH {0} {1}" OBJECTID="AF27423E8E80473FB9896DBE0993C801"/>
+    
+</dataset>

@@ -1,0 +1,31 @@
+db:
+  dbType: mysql
+  url: >-
+    jdbc:mysql://gef-unit-mysql8027.c3cxjzdf21mz.ap-northeast-1.rds.amazonaws.com:3306/gef_jdbc_tool?zeroDateTimeBehavior=convertToNull&useUnicode=true&useSSL=false&serverTimezone=GMT%2B9
+  username: geframe
+  password: Kccs0000
+  schema: gef_jdbc_tool
+reservedWords:
+  primaryKey: objectID
+  exclusiveKey: ExclusiveFG
+  companyCodeKey: CompanyCD
+  insertedUserIDKey: RegisteredPerson
+  insertedDateKey: RegisteredDT
+  updatedUserIDKey: UpdatedPerson
+  updatedDateKey: UpdatedDT
+locale:
+  current: en
+  mapping:
+    country1: en
+    country2: ja
+    country3: zh
+    country4: null
+    country5: null
+condition:
+  encoding: UTF-8
+transform:
+  encoding: UTF-8
+  useForeignKey: false
+  forceAliasColumn: false
+  queryMode: ENTITY_QUERY
+  useExpMap: false

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>kccs.geframe</groupId>
+        <artifactId>gef-dao2jdbc-xform</artifactId>
+        <version>${version.gef.jdbc.tools}</version>
+    </parent>
+
+    <artifactId>dao2jdbc-entity-xform-cmd</artifactId>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <dependencies>
+
+        <dependency>
+            <groupId>kccs.geframe</groupId>
+            <artifactId>gef-dao</artifactId>
+            <version>${gef.old.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+            <version>2.13.0</version>
+        </dependency>
+        <dependency>
+            <groupId>kccs.geframe</groupId>
+            <artifactId>dao2jdbc-entity-xform-entity-extractor</artifactId>
+            <version>${version.gef.jdbc.tools}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>kccs.geframe</groupId>
+            <artifactId>jdbc-xform-common</artifactId>
+            <version>${version.gef.jdbc.tools}</version>
+        </dependency>
+        <dependency>
+            <groupId>kccs.geframe</groupId>
+            <artifactId>dao2jdbc-xform-common</artifactId>
+            <version>${version.gef.jdbc.tools}</version>
+        </dependency>
+        <dependency>
+            <groupId>kccs.geframe</groupId>
+            <artifactId>gef-core</artifactId>
+            <version>${gef.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>kccs.geframe</groupId>
+            <artifactId>gef-jdbc</artifactId>
+            <version>${gef.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.28</version>
+        </dependency>
+		<dependency>
+			<groupId>org.dbunit</groupId>
+			<artifactId>dbunit</artifactId>
+			<version>2.6.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.oracle.database.jdbc</groupId>
+			<artifactId>ojdbc8</artifactId>
+			<version>12.2.0.1</version>
+		</dependency>
+        <dependency>
+            <groupId>com.ibm.db2</groupId>
+            <artifactId>jcc</artifactId>
+            <version>11.5.9.0</version>
+        </dependency>
+		<dependency>
+			<groupId>kccs.geframe</groupId>
+			<artifactId>dao2jdbc-xform-test-utils</artifactId>
+            <version>${version.gef.jdbc.tools}</version>
+			<scope>test</scope>
+		</dependency>
+        <dependency>
+            <groupId>kccs.geframe</groupId>
+            <artifactId>dao2jdbc-entity-xform-entity2xml</artifactId>
+            <version>${version.gef.jdbc.tools}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.0.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>jp.co.kccs.greenearth.xform.dao.entity.cmd.GDao2XFormEntityCmdMain</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

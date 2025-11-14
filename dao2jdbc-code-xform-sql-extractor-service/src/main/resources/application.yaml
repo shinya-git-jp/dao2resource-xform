@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: dao2jdbc-code-xform-sql-extractor-service
+  redis:
+    host: redis.dao2jdbc-xform.tool.jissou.kccs.local
+    port: 6379

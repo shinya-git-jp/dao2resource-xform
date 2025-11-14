@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util-3.0.xsd
+          ">
+
+	<!-- ###########################
+               gef-auth
+         ########################### -->
+	<bean name="jp.co.kccs.greenearth.framework.authorization.GRoleFinder" class="jp.co.kccs.greenearth.framework.authorization.GRoleFinderImpl" scope="singleton" />
+	<bean name="jp.co.kccs.greenearth.framework.authorization.GRoleDao" class="jp.co.kccs.greenearth.framework.authorization.GEditableRoleDaoImpl" scope="request" />
+	<bean name="jp.co.kccs.greenearth.framework.auth.GCompanyDao" class="jp.co.kccs.greenearth.framework.auth.GCompanyDaoImpl" scope="request" />
+	<bean name="jp.co.kccs.greenearth.framework.auth.GGroupDao.Organization" class="jp.co.kccs.greenearth.framework.auth.GOrganizationDaoImpl" scope="request" >
+		<constructor-arg>
+			<ref bean="jp.co.kccs.greenearth.framework.auth.GCompanyDao" />
+		</constructor-arg>
+	</bean>
+	<bean name="jp.co.kccs.greenearth.framework.auth.GGroupDao.Rank" class="jp.co.kccs.greenearth.framework.auth.GEmploymentRankDaoImpl" scope="request" >
+		<constructor-arg>
+			<ref bean="jp.co.kccs.greenearth.framework.auth.GCompanyDao" />
+		</constructor-arg>
+	</bean>
+	<bean name="jp.co.kccs.greenearth.framework.auth.GGroupDaoMap" class="java.util.HashMap" scope="request">
+		<constructor-arg>
+			<map>
+				<entry key="Organization">
+					<ref bean="jp.co.kccs.greenearth.framework.auth.GGroupDao.Organization" />
+				</entry>
+				<entry key="Rank">
+					<ref bean="jp.co.kccs.greenearth.framework.auth.GGroupDao.Rank" />
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+	<bean name="jp.co.kccs.greenearth.framework.auth.GUserDao" class="jp.co.kccs.greenearth.framework.auth.GUserDaoImpl" scope="request">
+		<constructor-arg>
+			<ref bean="jp.co.kccs.greenearth.framework.auth.GCompanyDao" />
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="jp.co.kccs.greenearth.framework.auth.GGroupDaoMap" />
+		</constructor-arg>
+	</bean>
+</beans>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util-3.0.xsd
+          ">
+
+<!-- ###########################
+           gef-mvc
+     ########################### -->
+
+	<bean id="jp.co.kccs.greenearth.commons.GFrameworkContext" class="jp.co.kccs.greenearth.framework.GWebContext" scope="request" />
+	<bean name="jp.co.kccs.greenearth.framework.GParameter" class="jp.co.kccs.greenearth.framework.GParameterImpl" scope="prototype" />
+	<bean name="jp.co.kccs.greenearth.framework.action.GActionInvoker" class="jp.co.kccs.greenearth.framework.action.GActionInvokerImpl" scope="singleton" />
+	<bean name="jp.co.kccs.greenearth.framework.data.GResultData" class="jp.co.kccs.greenearth.framework.data.GResultData" scope="prototype" />
+	<bean id="jp.co.kccs.greenearth.framework.session.GSessionManager" class="jp.co.kccs.greenearth.framework.session.GSessionManagerByHttpSession" />
+	<bean name="jp.co.kccs.greenearth.framework.session.GSession" class="jp.co.kccs.greenearth.framework.session.GSessionImpl" scope="prototype" />
+	<bean id="jp.co.kccs.greenearth.framework.auth.GAuthentication" class="jp.co.kccs.greenearth.framework.auth.GAuthenticationImpl" />
+	<bean name="jp.co.kccs.greenearth.framework.menu.GMenuFinder" class="jp.co.kccs.greenearth.framework.menu.GMenuFinderImpl" scope="request" >
+		<constructor-arg>
+			<ref bean="jp.co.kccs.greenearth.framework.menu.GMenuDao" />
+		</constructor-arg>
+	</bean>
+	<bean name="jp.co.kccs.greenearth.framework.menu.GMenuDao" class="jp.co.kccs.greenearth.framework.menu.GEditableMenuDaoImpl" scope="request" >
+		<constructor-arg>
+			<ref bean="jp.co.kccs.greenearth.framework.authorization.GRoleDao" />
+		</constructor-arg>
+		<!-- 【カテゴリのアプリケーションタイプ】子要素（アイテム）のアプリケーションタイプを表します -->
+		<constructor-arg>
+			<map>
+				<entry key="RIAClientCategory"><value>CATEGORY-APPLICATION-TYPE-RIA-CLIENT</value></entry>
+				<entry key="SmartClientCategory"><value>CATEGORY-APPLICATION-TYPE-SMART-CLIENT</value></entry>
+			</map>
+		</constructor-arg>
+		<!-- 【アイテムのアプリケーションタイプ】アプリケーションの起動方法（jsp, exe, application, etc.）を表します -->
+		<constructor-arg>
+			<map>
+				<entry key="RIAClientItem"><value>ITEM-APPLICATION-TYPE-RIA-CLIENT</value></entry>
+				<entry key="SmartClientItem"><value>ITEM-APPLICATION-TYPE-SMART-CLIENT</value></entry>
+				<entry key="ClickOnceItem"><value>ITEM-APPLICATION-TYPE-CLICKONCE</value></entry>
+				<entry key="ExternalItem"><value>ITEM-APPLICATION-TYPE-EXTERNAL</value></entry>
+			</map>
+		</constructor-arg>
+		<!-- 【カテゴリのメニュータイプ】カテゴリの分類（カテゴリ, メニュー）を表します -->
+		<constructor-arg>
+			<map>
+				<entry key="Category"><value>CATEGORY-MENU-TYPE-CATEGORY</value></entry>
+				<entry key="Menu"><value>CATEGORY-MENU-TYPE-MENU</value></entry>
+			</map>
+		</constructor-arg>
+		<!-- 【アイテムのメニュータイプ】アプリケーションの機能種別（エントリー, バッチ, 帳票, 照会, etc.）を表します -->
+		<constructor-arg>
+			<map>
+				<entry key="Entry"><value>ITEM-MENU-TYPE-ENTRY</value></entry>
+				<entry key="Batch"><value>ITEM-MENU-TYPE-BATCH</value></entry>
+				<entry key="Report"><value>ITEM-MENU-TYPE-REPORT</value></entry>
+				<entry key="List"><value>ITEM-MENU-TYPE-LIST</value></entry>
+				<entry key="Other"><value>ITEM-MENU-TYPE-OTHER</value></entry>
+			</map>
+		</constructor-arg>
+	</bean>
+</beans>

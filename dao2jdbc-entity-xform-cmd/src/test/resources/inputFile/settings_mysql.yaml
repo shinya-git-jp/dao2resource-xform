@@ -1,0 +1,16 @@
+db:
+# gef-daoリポジトリテーブルにアクセスする時の接続情報を設定します。
+    url: jdbc:mysql://gef-integration-mysql8027.c3cxjzdf21mz.ap-northeast-1.rds.amazonaws.com:3306/gef_dao?zeroDateTimeBehavior=convertToNull&useUnicode=true&useSSL=false&serverTimezone=GMT%2B9
+    dbType: mysql
+    schema: gef_jdbc_tool
+    username: geframe
+    password: gef_ria_integration
+reservedWords:
+# gef-dao Virtual Entityに設定されている各種予約語をツールに連携します。
+    primaryKey: "objectID"
+    exclusiveKey: "ExclusiveFG"
+    companyCodeKey: "CompanyCD"
+    insertedUserIDKey: RegisteredPerson
+    insertedDateKey: RegisteredDT
+    updatedUserIDKey: UpdatedPerson
+    updatedDateKey: UpdatedDT

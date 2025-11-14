@@ -1,0 +1,30 @@
+db:
+# gef-daoリポジトリテーブルにアクセスする時の接続情報を設定します。
+    url: jdbc:oracle:thin:@gef-integration-ora19150.c3cxjzdf21mz.ap-northeast-1.rds.amazonaws.com:1521:ORCL
+    dbType: oracle
+    schema: gef_jdbc_tool
+    username: gef_jdbc_tool
+    password: Kccs0000
+reservedWords:
+# gef-dao Virtual Entityに設定されている各種予約語をツールに連携します。
+    primaryKey: "objectID"
+    exclusiveKey: "ExclusiveFG"
+    companyCodeKey: "CompanyCD"
+    insertedUserIDKey: RegisteredPerson
+    insertedDateKey: RegisteredDT
+    updatedUserIDKey: UpdatedPerson
+    updatedDateKey: UpdatedDT
+locale:
+    current: en
+    mapping:
+        country1: en
+        country2: ja
+        country3: zh
+        country4:
+        country5:
+#condition.encoding: UTF-8 
+transform:
+    encoding: UTF-8 
+    useForeignKey: false #true/false
+    #forceAliasColumn: false 
+    #queryMode: ENTITY_QUERY #ENTITY_QUERY/DIRECT_QUERY 

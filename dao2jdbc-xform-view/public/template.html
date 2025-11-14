@@ -1,0 +1,1752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <title>XForm Code Report</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        #header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 5px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+			font-size: 2.5rem; 
+            text-align: center;
+            font-size: 22px;
+            font-weight: 700; 
+            color: #2c3e50;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        #searchContainer {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        #searchByDescription, #searchByType, #paginationNumber {
+            padding: 10px 15px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+		select[id^="filterByApi-"] {
+            padding: 10px 5px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 1rem;
+		}
+
+        #searchByDescription {
+            flex: 2;
+        }
+
+        #searchByType {
+            flex: 1;
+        }
+
+		#container {
+			margin-top:150px;
+            max-width: 1200px;
+            width: 100%;
+		}
+        #jsonDisplay {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .json-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+            margin: 15px 0;
+            padding: 15px;
+            transition: all 0.2s ease-in-out;
+			cursor:pointer;
+        }
+
+        .json-container:hover {
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+        }
+		
+		.json-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+        .json-item {
+            display: flex;
+            padding: 10px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .json-item:last-child {
+            border-bottom: none;
+        }
+
+        .json-label {
+            font-weight: 500;
+            color: #7f8c8d;
+            flex-basis: 15%;
+        }
+		
+        .json-value {
+            font-size: 1rem;
+            color: #2c3e50;
+			flex-basis: 80%;
+            justify-content: space-between;
+            align-items: center;
+			overflow-wrap: break-word;
+			overflow-y: auto;
+			min-height: 50px;
+			box-sizing: border-box; 
+			resize: vertical;
+			background-color: #faf9f7;
+			padding: 10px;
+			border-radius: 5px;
+        }
+		.api-code-container {
+            font-size: 1rem;
+            color: #2c3e50;
+			flex-basis: 85%;
+            justify-content: space-between;
+            align-items: center;
+			overflow-wrap: break-word;
+			overflow-y: auto;
+			min-height: 50px;
+		}
+		.json-copy-button {
+            flex-basis: 5%;
+			
+		}
+
+        .copy-btn {
+            cursor: pointer;
+            background-color: #333333;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 5px 15px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.2s ease;
+            margin-left: 10px;
+			min-width: 100px;
+        }
+
+        .copy-btn:hover {
+            background-color: #111111;
+        }
+
+        .copy-btn svg {
+            margin-right: 6px;
+            fill: white;
+        }
+		.details-btn {
+			cursor: pointer;
+			background-color: #DF0522;
+			color: white;
+			border: none;
+			border-radius: 50px;
+			width: 100px;
+			padding: 5px 15px;
+			text-align:center;
+			transition: background-color 0.2s ease;
+		}
+		.details-btn:hover {
+			background-color: #c4041e;
+		}
+
+		.details-btn svg {
+			fill: white;
+		}
+        .toggle-btn {
+            cursor: pointer;
+            color: #3498db;
+            display: inline-block;
+            font-size: 1.2rem; 
+            font-weight: 500;
+            margin-bottom: 10px;
+            padding: 5px; 
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+
+        .toggle-btn:hover {
+            background-color: #e1e1e1; 
+        }
+
+        .json-details {
+            margin-top: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+
+        #pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .pagination-btn {
+            padding: 8px 12px;
+            background-color: #DF0522;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .pagination-btn:hover {
+            background-color: #c4041e;
+        }
+
+        .pagination-btn.disabled {
+            background-color: #bdc3c7;
+            cursor: default;
+        }
+
+        #page-info {
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: #7f8c8d;
+        }
+        #notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #3498db;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 1rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease-in-out;
+			z-index: 9999;
+        }
+
+        #notification.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+		#resultSize {
+			font-weight: 600;
+			padding-bottom: 5px;	
+		}
+		.apiCode {
+			padding-top: 15px;
+			padding-bottom: 5px;
+		}
+		.subtitleLabel {
+			font-size:8pt;
+			color: #888888;
+			font-weight: 800;
+		}
+		
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            z-index: 1001; 
+        }
+		.overlay:hover {
+			cursor: pointer;
+		}
+
+        .open-btn {
+            padding: 12px 20px;
+            background-color: #00e0ff;
+            color: #121212;
+            font-size: 1rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .open-btn:hover {
+            transform: scale(1.1);
+            background-color: #00b8cc;
+        }
+
+        .dialog {
+            background: #FFFFFF;
+            border-radius: 12px;
+            width: 80%;
+            padding: 25px 50px 50px 50px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+            transform: scale(0);
+            animation: scaleIn 0.4s forwards;
+			display: none;
+            position: fixed;
+            z-index: 1002; 
+			font-size: 10pt;
+			overflow-y: scroll;
+			max-height: 80vh;
+        }
+		.table-container {  
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+			box-sizing: content-box; 
+			resize: vertical;
+			background-color: #DF0522;
+			min-height: 100px; 
+			max-height: 300px;
+			overflow-y: scroll;
+			border-radius: 5px; 
+            border-bottom: 8px solid #DF0522; 
+		}
+        table {
+            width: 100%;
+			background-color:white;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;	
+            border-bottom: 0.1px solid #CCC;
+
+			padding-left: 40px;
+        }
+        th {
+            background-color: #DF0522;
+            color: #fff;
+            text-transform: uppercase; 
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+        td {
+            background-color: #EFFFFF;
+        }
+
+        tr:hover td {
+            transition: background-color 0.3s ease-in-out;
+			cursor:pointer;
+			background-color:#383838;
+			color:white;
+        }
+
+        th:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+		.ve-detail-title {
+			font-weight: bold;
+			text-align: right;
+			flex: 30%;
+		}
+		.ve-detail-value {
+			flex:50%;
+		}
+		.ve-detail-header {
+			display: flex;
+			flex-direction: row;
+			flex-wrap:wrap;
+			margin-top: 5px;
+			flex: 50%;
+		}
+		.ve-header {
+			margin-bottom: 20px;
+			margin-top:20px;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+		}
+		.close-btn {
+			position:absolute;
+			top: 10px;
+			right: 10px;
+			font-size: 20pt;
+			font-weight: bold;
+			background-color: transparent;
+			border-width: 0px;
+		}
+		.close-btn:hover {
+			cursor: pointer;
+		}
+		.absolute-ve {
+			background-color: #DF0522;
+			color: white;
+			text-align:center;
+			border-radius: 20px;
+			padding:2px 10px;
+		}
+		.checkbox-wrapper-4 * {
+			box-sizing: border-box;
+		}
+		.checkbox-wrapper-4 .cbx {
+			-webkit-user-select: none;
+			user-select: none;
+			cursor: pointer;
+			padding: 6px 8px;
+			border-radius: 6px;
+			overflow: hidden;
+			transition: all 0.2s ease;
+			display: inline-block;
+		}
+		.checkbox-wrapper-4 .cbx:not(:last-child) {
+			margin-right: 6px;
+		}
+		.checkbox-wrapper-4 .cbx:hover {
+			background: rgba(0,119,255,0.06);
+		}
+		.checkbox-wrapper-4 .cbx span {
+			float: left;
+			vertical-align: middle;
+			transform: translate3d(0, 0, 0);
+		}
+		.checkbox-wrapper-4 .cbx span:first-child {
+			position: relative;
+			width: 18px;
+			height: 18px;
+			border-radius: 4px;
+			transform: scale(1);
+			border: 1px solid #cccfdb;
+			transition: all 0.2s ease;
+			box-shadow: 0 1px 1px rgba(0,16,75,0.05);
+		}
+		.checkbox-wrapper-4 .cbx span:first-child svg {
+			position: absolute;
+			top: 3px;
+			left: 2px;
+			fill: none;
+			stroke: #fff;
+			stroke-width: 2;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+			stroke-dasharray: 16px;
+			stroke-dashoffset: 16px;
+			transition: all 0.3s ease;
+			transition-delay: 0.1s;
+			transform: translate3d(0, 0, 0);
+		}
+		.checkbox-wrapper-4 .cbx span:last-child {
+			padding-left: 8px;
+			line-height: 18px;
+		}
+		.checkbox-wrapper-4 .cbx:hover span:first-child {
+			border-color: #07f;
+		}
+		.checkbox-wrapper-4 .inp-cbx {
+			position: absolute;
+			visibility: hidden;
+		}
+		.checkbox-wrapper-4 .inp-cbx:checked + .cbx span:first-child {
+			background: #07f;
+			border-color: #07f;
+			animation: wave-4 0.4s ease;
+		}
+		.checkbox-wrapper-4 .inp-cbx:checked + .cbx span:first-child svg {
+			stroke-dashoffset: 0;
+		}
+		.checkbox-wrapper-4 .inline-svg {
+			position: absolute;
+			width: 0;
+			height: 0;
+			pointer-events: none;
+			user-select: none;
+		}
+		@media screen and (max-width: 640px) {
+			.checkbox-wrapper-4 .cbx {
+				width: 100%;
+				display: inline-block;
+			}
+		}
+		@-moz-keyframes wave-4 {
+			50% {
+				transform: scale(0.9);
+			}
+		}
+		@-webkit-keyframes wave-4 {
+			50% {
+				transform: scale(0.9);
+			}
+		}
+		@-o-keyframes wave-4 {
+			50% {
+				transform: scale(0.9);
+			}
+		}
+		@keyframes wave-4 {
+			50% {
+				transform: scale(0.9);
+			}
+		}
+		.tooltip {
+			position: relative;
+			cursor: pointer;
+		}
+
+		.tooltip .tooltiptext {
+		  visibility: hidden;
+		  width: 120px;
+		  background-color: #555;
+		  color: #fff;
+		  text-align: center;
+		  border-radius: 5px;
+		  padding: 5px;
+		  position: absolute;
+		  z-index: 1;
+		  bottom: 100%;
+		  left: 50%;
+		  margin-left: -60px;
+		  opacity: 0;
+		  transition: opacity 0.3s;
+		}
+
+		.tooltip:hover .tooltiptext {
+		  visibility: visible;
+		  opacity: 1;
+		}
+		.tooltip:hover {
+			background-color: #ff5d00;
+		}
+		
+        .tabs-container {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-header {
+            display: flex;
+			max-width: 500px;
+            background-color: #FFFFFF;
+            border-radius: 30px;
+			margin: auto;
+            overflow: hidden;
+            box-shadow: 0 0 7px 1px rgba(0, 0, 0, 0.1);
+			
+        }
+
+        .tab-header div {
+            flex: 1;
+            padding: 7px 12px;
+            text-align: center;
+            cursor: pointer;
+            background-color: #FFFFFF;
+            font-weight: bold;
+			font-size: 10pt;
+			border-radius: 20px;
+			margin: 7px;
+        }
+
+        .tab-header div:hover {
+            background-color: #DF0522;
+			color: white;
+        }
+
+        .tab-header .active {
+            background-color: #DF0522;
+			color:white;
+        }
+
+        .tab-content {
+            display: none;
+			padding-top: 20px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+        .custom-combobox {
+            width: 200px; 
+			margin-top: -2px;
+            border: none ;
+            border-radius: 20px; 
+            background-color: #DF0522;
+            transition: border-color 1s ease;
+            position: relative; 
+        }
+		.custom-combobox select {
+			appearance: none;
+			width: 200px;
+			border: none ;
+			border-radius: 20px; 
+			background-color: #DF0522;
+            color: white;
+            padding: 5px 20px;
+			cursor: pointer;
+		}
+
+        .custom-combobox select:hover {
+            border-color: #DF0522;
+        }
+
+        .custom-combobox select:focus {
+            outline: none;
+            border-color: #1abc9c;
+        }
+
+        .custom-combobox::-ms-expand {
+            display: none;
+        }
+
+        .custom-combobox::after {
+            content: " ▼";
+            color: white;
+            font-size: 14px;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+		.table-container-title {
+			padding: 10px 0px;
+			text-align: center;
+			background-color: #DF0522;
+			color: white;
+			width: auto;
+			font-weight: bold;
+		}
+		.table-container-title-chip {
+			background-color:white; 
+			padding: 3px 15px; 
+			border-radius: 50px; 
+			color: #DF0522;
+		}
+		pre {
+            font-family: inherit;
+            white-space: pre-wrap; 
+			margin: 0px;
+        }
+		
+    </style>
+</head>
+<body>
+
+<div id="header">
+	<h1>Dao2Jdbc Code XForm Report</h1>
+
+	<div id="searchContainer">
+		<input type="text" id="searchByDescription" placeholder="IDで検索" onkeyup="searchJSON()">
+
+		<select id="searchByType" onchange="searchJSON()">
+			<option value="">CRUDタイプ</option>
+			<option value="SELECT">Select</option>
+			<option value="UPDATE">Update</option>
+			<option value="INSERT">Insert</option>
+			<option value="DELETE">Delete</option>
+		</select>
+		<select id="paginationNumber" onchange="changePaginationRange()">
+			<option value="5">1ページのアイテム数</option>
+			<option value="5">5 アイテム</option>
+			<option value="10">10 アイテム</option>
+			<option value="50">50 アイテム</option>
+			<option value="100">100 アイテム</option>
+			<option value="200">200 アイテム</option>
+			<option value="500">500 アイテム</option>
+			<option value="1000">1000 アイテム</option>
+		</select>
+	</div>
+	<div id="page-info"></div>
+	</div>
+	
+</div>
+
+<div id="container">
+	<div id="pagination"></div>
+	<div id="jsonDisplay"></div>
+</div>
+
+
+<div class="overlay" id="overlay" onclick="closeDialog()"></div>
+
+<div class="dialog">
+    <h1>仮想表定義情報</h1>
+	
+	<div class="tab-header">
+		<div class="tab" data-target="tab1">全般</div>
+		<div class="tab" data-target="tab2">メインエンティティ</div>
+	</div>
+	<div class="tab-content" id="tab1">
+		<div class="ve-header">
+			<div class="ve-detail-header">
+				<div class="ve-detail-title">
+					仮想表名：
+				</div>
+				<div class="ve-detail-value" id="ve-info-displayname">
+					${displayName}
+				</div>
+			</div>
+			<div class="ve-detail-header">
+				<div class="ve-detail-title">
+					カテゴリ名：
+				</div>
+				<div class="ve-detail-value" id="ve-info-categoryName">
+					${categoryName}
+				</div>
+			</div>
+			<div class="ve-detail-header">
+				<div class="ve-detail-title">
+					仮想表ID：
+				</div>
+				<div class="ve-detail-value" id="ve-info-veid">
+					${veId}
+				</div>
+			</div>
+			
+			<div class="ve-detail-header">
+				<div class="ve-detail-title">
+					カテゴリID：
+				</div>
+				<div class="ve-detail-value" id="ve-info-categoryid">
+					${categoryId}
+				</div>
+			</div>
+			
+			<div class="ve-detail-header">
+				<div class="ve-detail-title">
+					仮想表タイプ：
+				</div>
+				<div class="ve-detail-value" id="ve-info-vetype">
+					${veType}
+				</div>
+			</div>
+			<div class="ve-detail-header">
+				<div class="ve-detail-title">
+				</div>
+				<div class="ve-detail-value">
+				</div>
+			</div>
+			<span style="display:none" id="ve-info-absolutevecode"> </span>
+		</div>
+		
+		<div class="table-container" id="ve-info-columns-container">
+			<div class="table-container-title">
+				<span class="table-container-title-chip"> 仮想項目 </span>
+			</div>
+			<div id="ve-info-columns">
+			</div>
+		</div>
+		<div>
+			<button class="copy-btn" id="copy-absolute-ve-btn" style="margin-top: 30px;margin-left:-2px;font-weight:bold;" onclick="copyToClipboard('ve-info-absolutevecode')">完全仮想項目をコピー</button>
+		</div>
+		
+		<div class="ve-header">
+			<div class="ve-detail-header">
+				<div class="ve-detail-title">
+					外部キー名：
+				</div>
+				<div class="ve-detail-value">
+					<div  class="custom-combobox"> 
+						<select id="ve-foreign-keys">
+							<option> - </option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="ve-detail-header">
+				<div class="ve-detail-title">
+					参照エンティティ名：
+				</div>
+				<div class="ve-detail-value" id="ve-info-foreign-keys-ref">
+				</div>
+			</div>
+			<div class="ve-detail-header">
+				<div class="ve-detail-title">
+					外部キータイプ：
+				</div>
+				<div class="ve-detail-value" id="ve-info-foreign-keys-join-type">
+				</div>
+			</div>
+			
+			<div class="ve-detail-header">
+				<div class="ve-detail-title">
+					
+				</div>
+				<div class="ve-detail-value">
+				</div>
+			</div>
+		</div>
+		
+		<div class="table-container" id="ve-info-foreign-keys-columns-container">
+			<div class="table-container-title">
+				<span class="table-container-title-chip"> 外部キー </span>
+			</div>
+			<div id="ve-info-foreign-keys-columns">
+			</div>
+		</div>
+		
+		<div class="table-container" style="margin-top: 50px;" id="ve-info-filter-conditions-container">
+			<div class="table-container-title">
+				<span class="table-container-title-chip"> フィルター条件 </span>
+			</div>
+			<div id="ve-info-filter-conditions">
+			</div>
+		</div>
+		
+		<div class="table-container" style="margin-top: 50px;" id="ve-info-search-conditions-container">
+			<div class="table-container-title">
+				<span class="table-container-title-chip"> 検索条件 </span>
+			</div>
+			<div id="ve-info-search-conditions">
+			</div>
+		</div>
+		
+		
+		<div class="table-container" style="margin-top: 50px;" id="ve-info-sort-columns-container">
+			<div class="table-container-title">
+				<span class="table-container-title-chip"> ソート項目 </span>
+			</div>
+			<div id="ve-info-sort-columns">
+			</div>
+		</div>
+		
+		
+		<div class="table-container" style="margin-top: 50px;" id="ve-info-group-columns-container">
+			<div class="table-container-title">
+				<span class="table-container-title-chip"> グループ項目 </span>
+			</div>
+			<div id="ve-info-group-columns">
+			</div>
+		</div>
+	</div>
+	<div class="tab-content" id="tab2"> 
+		<div class="ve-header">
+			<div class="ve-detail-header">
+				<div class="ve-detail-title">
+					メインエンティティ名：
+				</div>
+				<div class="ve-detail-value" id="ve-info-entity-name">
+					${entityName}
+				</div>
+			</div>
+			<div class="ve-detail-header">
+				<div class="ve-detail-title">
+					データベース名：
+				</div>
+				<div class="ve-detail-value" id="ve-info-entity-database">
+					${databaseName}
+				</div>
+			</div>
+		</div>
+		<div class="table-container" id="ve-info-entity-columns-container">
+			<div class="table-container-title">
+				<span class="table-container-title-chip"> メインエンティティ項目 </span>
+			</div>
+			<div id="ve-info-entity-columns">
+			</div>
+		</div>
+		<div class="ve-header">
+			<div class="ve-detail-header">
+				<div class="ve-detail-title">
+					ユニークキー名：
+				</div>
+				<div class="ve-detail-value" id="ve-info-entity-name">
+					<div  class="custom-combobox"> 
+						<select id="ve-entity-unique-keys">
+							<option> - </option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="ve-detail-header">
+				<div class="ve-detail-title">
+				</div>
+				<div class="ve-detail-value">
+				</div>
+			</div>
+		</div>
+		
+		<div class="table-container" id="ve-info-entity-unique-keys-columns-container">
+			<div class="table-container-title">
+				<span class="table-container-title-chip"> ユニークキー </span>
+			</div>
+			<div id="ve-info-entity-unique-keys-columns">
+			</div>
+		</div>
+		<div class="ve-header">
+			<div class="ve-detail-header">
+				<div class="ve-detail-title">
+					外部キー名：
+				</div>
+				<div class="ve-detail-value" id="ve-info-entity-name">
+					<div  class="custom-combobox"> 
+						<select id="ve-entity-foreign-keys">
+							<option> - </option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="ve-detail-header">
+				<div class="ve-detail-title">
+					参照エンティティ：
+				</div>
+				<div class="ve-detail-value" id="ve-info-entity-foreign-keys-ref">
+				</div>
+			</div>
+			<div class="ve-detail-header">
+				<div class="ve-detail-title">
+					外部キータイプ：
+				</div>
+				<div class="ve-detail-value" id="ve-info-entity-foreign-keys-join-type">
+				</div>
+			</div>
+			<div class="ve-detail-header">
+				<div class="ve-detail-title">
+					
+				</div>
+				<div class="ve-detail-value">
+				</div>
+			</div>	
+		</div>
+		
+		<div class="table-container" id="ve-info-entity-foreign-keys-columns-container">
+			<div class="table-container-title">
+				<span class="table-container-title-chip"> 外部キー </span>
+			</div>
+			<div id="ve-info-entity-foreign-keys-columns">
+			</div>
+		</div>
+	</div>
+    <div>
+        <button class="close-btn" style="font-size:15pt" onclick="closeDialog()">X</button>
+    </div>
+</div>
+<div id="notification">Copied to clipboard!</div>
+
+<script>
+    const jsonArray = ${json_value}
+	var itemsPerPage = 10;
+    let currentPage = 1;
+    function displayJSON(jsonArray) {
+        const displayElement = document.getElementById('jsonDisplay');
+        displayElement.innerHTML = ''; 
+
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const paginatedArray = jsonArray.slice(start, end);
+        paginatedArray.forEach((obj, index) => {
+            const container = document.createElement('div');
+            container.className = 'json-container';
+            container.id = `json-${index}`;
+			container.onclick = () => toggleDetails(index);
+            let html = `
+                <div class="json-header">
+                    <div class="Json-header-title">
+                        <span>▶</span>
+                        ${obj.description} / ${obj.type}
+                    </div>
+                    <span>{detail_btn}</span>
+                </div>
+                <div id="details-${index}" class="json-details hidden" onclick="event.stopPropagation();">
+                <div class="apiCode"> <b>SQL スクリプト</b> <br> <span class='subtitleLabel'>変換前のSQLスクリプト</span></div>
+					<div class="json-item">
+                        <span class="json-label">SQL スクリプト:</span> 
+                        <span class="json-value">
+                            <pre><span id="sqlScript-${index}">${obj.sqlScript}</span></pre>
+                        </span>
+						<span class="json-copy-button">
+							<button class="copy-btn" onclick="copyToClipboard('sqlScript-${index}')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+                                    <path d="M10 1.5v-1h1a1 1 0 0 1 1 1v1h.5A1.5 1.5 0 0 1 14 3v10a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13V3A1.5 1.5 0 0 1 3.5 1.5H4v-1a1 1 0 0 1 1-1h1v1h1.5v1H5V2H4v1h8V2h-1v1h-2.5v-1H10z"/>
+                                    <path d="M5.5 1.5h-1v1h1v-1z"/>
+                                </svg>
+                                コピー
+                            </button>
+						</span>
+                    </div>
+					<div class="apiCode"> <b>API コード</b> <br> <span class='subtitleLabel'>変換後のGEF-JDBC APIコード</span></div>
+					{item1}
+					{item2}
+					{item3}
+                </div>
+            `;
+			html = changeDetailButtonIfAbsoluteColumnExist(html, index, paginatedArray);
+			if (obj.type == "SELECT") {
+				html = replaceApiCode(html, index, 1, 'FIND_LIST', paginatedArray, obj.type);
+				html = replaceApiCode(html, index, 2, 'FIND_RECORD', paginatedArray, obj.type);
+				html = replaceApiCode(html, index, 3, 'FIND_RECORD_SET', paginatedArray, obj.type);
+			} else {
+				html = replaceApiCode(html, index, 1, 'EXECUTE', paginatedArray, obj.type);
+				html = replaceApiCode(html, index, 2, 'EXECUTE_LIST', paginatedArray, obj.type);
+				html = replaceApiCode(html, index, 3, 'EXECUTE_BATCH', paginatedArray, obj.type);
+			}
+			container.innerHTML = html;
+            displayElement.appendChild(container);
+			document.getElementById("btn-details-"+index).addEventListener('click', function(event) {
+				openDialog(event, index, paginatedArray);
+			});
+        });
+
+        displayPagination(jsonArray);
+        displayPageInfo(jsonArray);
+    }
+	function changeDetailButtonIfAbsoluteColumnExist(html, index, paginatedArray) {
+		const absoluteCode = paginatedArray[index].virtualEntity.absoluteVirtualColumnCode;
+		const btn = document.createElement('button');
+		btn.id = "btn-details-"+index;
+		if (absoluteCode != "-") {
+			btn.className = 'details-btn tooltip';
+			btn.innerHTML = `<span class="tooltiptext">完全仮想項目含む</span>
+					<div style="display:flex; justify-content:center; align-items:center; text-align:center; ">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16" style="margin-right:2px;">
+							<path d="M8 1a7 7 0 1 0 7 7 7 7 0 0 0-7-7zM7.002 4a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7 6h2v5H7z"/>
+						</svg>
+					詳細</div>`;
+		} else {
+		btn.className = 'details-btn';
+			btn.innerHTML = `詳細`;
+		}
+		html = html.replace("{detail_btn}", btn.outerHTML);
+		return html;
+	}
+	function hideWhere(id) {
+		const display = document.getElementById(id).style.display;
+		if (display == "none") {
+			document.getElementById(id).style.display="flex";
+		} else {
+			document.getElementById(id).style.display="none";
+		}
+	}
+	function replaceApiCode(html, objIndex, itemIndex, apiType, paginatedArray, crudType) {
+		let codeWhere = paginatedArray[objIndex].apiCodes[apiType+"-WHERE"];
+		let codeWherePK = paginatedArray[objIndex].apiCodes[apiType+"-WHERE_PK"];
+		let codeWhereUK = paginatedArray[objIndex].apiCodes[apiType+"-WHERE_UK"];
+		let code = paginatedArray[objIndex].apiCodes[apiType];
+		
+		if (code != undefined) {
+			return html.replace('{item'+itemIndex+'}', `
+				<div class="json-item">
+					<span class="json-label">${replaceToCamelCase(apiType)}:</span> 
+					<span class="json-value">
+						<pre><span id="apiCode-${objIndex}-${itemIndex}">${code}</span></pre>
+					</span>
+					<span class="json-copy-button">
+						<button class="copy-btn" onclick="copyToClipboard('apiCode-${objIndex}-${itemIndex}')">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+								<path d="M10 1.5v-1h1a1 1 0 0 1 1 1v1h.5A1.5 1.5 0 0 1 14 3v10a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13V3A1.5 1.5 0 0 1 3.5 1.5H4v-1a1 1 0 0 1 1-1h1v1h1.5v1H5V2H4v1h8V2h-1v1h-2.5v-1H10z"/>
+								<path d="M5.5 1.5h-1v1h1v-1z"/>
+							</svg>
+								コピー
+						</button>
+					</span>
+				</div>
+			`);
+		} else if (codeWhere != undefined || codeWherePK != undefined || codeWhereUK != undefined) {
+			let apiCodeHtml = `<div class="json-item" style="display: flex; flex-direction: row;">
+					<span class="json-label" >${replaceToCamelCase(apiType)}:  `;
+			if (codeWhere != undefined) {
+				apiCodeHtml += `<div class="checkbox-container">
+							<div class="checkbox-wrapper-4">
+							  <input class="inp-cbx" id="where-${objIndex}-${crudType}-${itemIndex}-value-${replaceToCamelCase(apiType)}-checkbox" type="checkbox" checked  onchange="hideWhere('where-${objIndex}-${crudType}-${itemIndex}-value-${replaceToCamelCase(apiType)}')"/>
+							  <label class="cbx" for="where-${objIndex}-${crudType}-${itemIndex}-value-${replaceToCamelCase(apiType)}-checkbox"><span>
+							  <svg width="12px" height="10px">
+								<use xlink:href="#check-4"></use>
+							  </svg></span><span>where</span></label>
+							  <svg class="inline-svg">
+								<symbol id="check-4" viewbox="0 0 12 10">
+								  <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+								</symbol>
+							  </svg>
+							</div>
+						  </div>`;
+		   }
+			if (codeWherePK != undefined) {
+				apiCodeHtml += `<div class="checkbox-container">
+							<div class="checkbox-wrapper-4">
+							  <input class="inp-cbx" id="wherePK-${objIndex}-${crudType}-${itemIndex}-value-${replaceToCamelCase(apiType)}-checkbox" type="checkbox" checked onchange="hideWhere('wherePK-${objIndex}-${crudType}-${itemIndex}-value-${replaceToCamelCase(apiType)}')"/>
+							  <label class="cbx" for="wherePK-${objIndex}-${crudType}-${itemIndex}-value-${replaceToCamelCase(apiType)}-checkbox"><span>
+							  <svg width="12px" height="10px">
+								<use xlink:href="#check-5"></use>
+							  </svg></span><span>wherePK</span></label>
+							  <svg class="inline-svg">
+								<symbol id="check-5" viewbox="0 0 12 10">
+								  <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+								</symbol>
+							  </svg>
+							</div>
+						  </div>`;
+			}
+			if (codeWhereUK != undefined) {	
+				apiCodeHtml += `<div class="checkbox-container">
+							<div class="checkbox-wrapper-4">
+							  <input class="inp-cbx" id="whereUK-${objIndex}-${crudType}-${itemIndex}-value-${replaceToCamelCase(apiType)}-checkbox" type="checkbox" checked  onchange="hideWhere('whereUK-${objIndex}-${crudType}-${itemIndex}-value-${replaceToCamelCase(apiType)}')"/>
+							  <label class="cbx" for="whereUK-${objIndex}-${crudType}-${itemIndex}-value-${replaceToCamelCase(apiType)}-checkbox"><span>
+							  <svg width="12px" height="10px">
+								<use xlink:href="#check-6"></use>
+							  </svg></span><span>whereUK</span></label>
+							  <svg class="inline-svg">
+								<symbol id="check-6" viewbox="0 0 12 10">
+								  <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+								</symbol>
+							  </svg>
+							</div>
+						  </div>`;
+			}
+			apiCodeHtml += `</span>
+					<div class="api-code-container" >`;
+			if (codeWhere != undefined) {
+				apiCodeHtml += `<div style="display: flex; flex-direction: row; padding: 10px 0px;" id="where-${objIndex}-${crudType}-${itemIndex}-value-${replaceToCamelCase(apiType)}">
+							<div class="json-label" >where: </div>
+							<span class="json-value" >
+								<pre><span id="apiCode-${objIndex}-${itemIndex}-where">${codeWhere}</span></pre>
+							</span>
+							<div class="json-copy-button">
+								<button class="copy-btn" onclick="copyToClipboard('apiCode-${objIndex}-${itemIndex}-where')">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+										<path d="M10 1.5v-1h1a1 1 0 0 1 1 1v1h.5A1.5 1.5 0 0 1 14 3v10a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13V3A1.5 1.5 0 0 1 3.5 1.5H4v-1a1 1 0 0 1 1-1h1v1h1.5v1H5V2H4v1h8V2h-1v1h-2.5v-1H10z"/>
+										<path d="M5.5 1.5h-1v1h1v-1z"/>
+									</svg>
+									コピー
+								</button>
+							</div>
+						</div>`;
+			}
+			if (codeWherePK != undefined) {
+				apiCodeHtml += `<div style="display: flex; flex-direction: row; padding: 10px 0px;" id="wherePK-${objIndex}-${crudType}-${itemIndex}-value-${replaceToCamelCase(apiType)}">
+							<div class="json-label" >wherePK: </div>
+							<span class="json-value">
+								<pre><span id="apiCode-${objIndex}-${itemIndex}-wherePK">${codeWherePK}</span></pre>
+							</span>
+							<div class="json-copy-button">
+								<button class="copy-btn" onclick="copyToClipboard('apiCode-${objIndex}-${itemIndex}-wherePK')">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+										<path d="M10 1.5v-1h1a1 1 0 0 1 1 1v1h.5A1.5 1.5 0 0 1 14 3v10a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13V3A1.5 1.5 0 0 1 3.5 1.5H4v-1a1 1 0 0 1 1-1h1v1h1.5v1H5V2H4v1h8V2h-1v1h-2.5v-1H10z"/>
+										<path d="M5.5 1.5h-1v1h1v-1z"/>
+									</svg>
+									コピー
+								</button>
+							</div>
+						</div>`;
+			}
+			if (codeWhereUK != undefined) {
+				apiCodeHtml += `<div style="display: flex; flex-direction: row; padding: 10px 0px;" id="whereUK-${objIndex}-${crudType}-${itemIndex}-value-${replaceToCamelCase(apiType)}">
+							<div class="json-label" >whereUK: </div>
+							<span class="json-value">
+								<pre><span id="apiCode-${objIndex}-${itemIndex}-whereUK">${codeWhereUK}</span></pre>
+							</span>
+							<div class="json-copy-button"	>
+								<button class="copy-btn" onclick="copyToClipboard('apiCode-${objIndex}-${itemIndex}-whereUK')">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+										<path d="M10 1.5v-1h1a1 1 0 0 1 1 1v1h.5A1.5 1.5 0 0 1 14 3v10a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13V3A1.5 1.5 0 0 1 3.5 1.5H4v-1a1 1 0 0 1 1-1h1v1h1.5v1H5V2H4v1h8V2h-1v1h-2.5v-1H10z"/>
+										<path d="M5.5 1.5h-1v1h1v-1z"/>
+									</svg>
+									コピー
+								</button>
+							</div>
+						</div>`;
+			}
+			apiCodeHtml += `</div>
+			</div>`;
+			return html.replace('{item'+itemIndex+'}', apiCodeHtml);
+		}
+		return html.replace('{item'+itemIndex+'}', "");
+	}
+	
+	function replaceToCamelCase(str) {
+		return str.toLowerCase().replace(/_./g, match => match.charAt(1).toUpperCase());;
+	}
+
+    function toggleDetails(index) {
+        const container = document.getElementById(`json-${index}`);
+        const toggleBtn = container.firstElementChild.firstElementChild.firstElementChild;
+        const details = document.getElementById(`details-${index}`);
+        if (details.classList.contains('hidden')) {
+            details.classList.remove('hidden');
+            toggleBtn.innerHTML = '▼';
+        } else {
+            details.classList.add('hidden');
+            toggleBtn.innerHTML = '▶';
+        }
+    }
+	
+    function copyToClipboard(elementId) {
+        const textToCopy = document.getElementById(elementId).textContent;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            showNotification('Copied to clipboard!');
+        }).catch(err => {
+            console.error('Could not copy text: ', err);
+        });
+		event.stopPropagation();
+    }
+
+    function showNotification(message) {
+        const notification = document.getElementById('notification');
+        notification.textContent = message;
+        notification.classList.add('show');
+        
+        // Hide notification after 2 seconds
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 2000);
+    }
+    function searchJSON() {
+        const searchTerm = document.getElementById('searchByDescription').value.toLowerCase();
+        const typeFilter = document.getElementById('searchByType').value;
+  	 	 currentPage = 1;
+        const filteredArray = jsonArray.filter(obj => {
+            const descriptionMatch = obj.description.toLowerCase().includes(searchTerm);
+            const typeMatch = typeFilter === "" || obj.type === typeFilter;
+            return descriptionMatch && typeMatch;
+        });
+        displayJSON(filteredArray);
+    }
+	
+
+    function displayPagination(filteredArray) {
+        const paginationElement = document.getElementById('pagination');
+        paginationElement.innerHTML = ''; 
+
+        const totalPages = Math.ceil(filteredArray.length / itemsPerPage);
+
+        const prevBtn = document.createElement('button');
+        prevBtn.className = `pagination-btn ${currentPage === 1 ? 'disabled' : ''}`;
+        prevBtn.textContent = '前へ';
+        prevBtn.onclick = () => changePage(currentPage - 1, filteredArray);
+        paginationElement.appendChild(prevBtn);
+
+        const nextBtn = document.createElement('button');
+        nextBtn.className = `pagination-btn ${currentPage === totalPages ? 'disabled' : ''}`;
+        nextBtn.textContent = '次へ';
+        nextBtn.onclick = () => changePage(currentPage + 1, filteredArray);
+        paginationElement.appendChild(nextBtn);
+    }
+
+    function displayPageInfo(filteredArray) {
+        const pageInfoElement = document.getElementById('page-info');
+        const totalItems = filteredArray.length;
+        const start = (currentPage - 1) * itemsPerPage + 1;
+        const end = Math.min(currentPage * itemsPerPage, totalItems);
+		if (start <= end) {
+			pageInfoElement.textContent = `${currentPage} / ${Math.ceil(totalItems / itemsPerPage)}ページ（${start}-${end}件 / ${totalItems}件）`;
+		} else {
+			pageInfoElement.textContent = `0 / ${Math.ceil(totalItems / itemsPerPage)}ページ（0-${end}件 / ${totalItems}件）`;
+		}
+    }
+	function filterApiCodes(index) {
+		console.log(document.getElementById('filterByApi-' + index).value)
+		document.getElementById('apiCode-' + index).innerHTML = jsonArray[index]['apiCodes'][document.getElementById('filterByApi-' + index).value];
+		event.stopPropagation();
+	}
+
+    function changePage(newPage, filteredArray) {
+        if (newPage < 1 || newPage > Math.ceil(filteredArray.length / itemsPerPage)) return;
+        currentPage = newPage;
+        displayJSON(filteredArray);
+    }
+	function changePaginationRange() {
+		itemsPerPage = document.getElementById('paginationNumber').value;
+		currentPage=1;
+		searchJSON();
+	}
+	function openDialog(event, index, paginatedArray) {
+        document.querySelector('.overlay').style.display = 'block';
+        document.querySelector('.dialog').style.display = 'block';
+        document.querySelector('.dialog').style.transform = 'scale(1)';
+		replaceVeInfo(index, paginatedArray);
+		resetToTheFirstTab();
+		document.body.style.overflow = 'hidden';
+		event.stopPropagation();
+    }
+
+    function closeDialog() {
+        document.querySelector('.overlay').style.display = 'none';
+        document.querySelector('.dialog').style.display = 'none';
+		document.body.style.overflow = 'auto';
+    }
+    displayJSON(jsonArray);
+	function resetToTheFirstTab() {
+		tabs.forEach(tab => tab.classList.remove('active'));
+		contents.forEach(content => content.classList.remove('active'));
+
+		tabs[0].classList.add('active');
+		contents[0].classList.add('active');
+	}
+	
+	function replaceVeInfo(objIndex, paginatedArray) {
+		const ve = paginatedArray[objIndex].virtualEntity;
+		document.getElementById("ve-info-veid").innerHTML = ve.veId;
+		document.getElementById("ve-info-categoryid").innerHTML = ve.categoryId;
+		document.getElementById("ve-info-vetype").innerHTML = ve.veType;
+		document.getElementById("ve-info-displayname").innerHTML = ve.displayName;
+		document.getElementById("ve-info-categoryName").innerHTML = ve.categoryName;
+		document.getElementById("ve-info-absolutevecode").innerHTML = ve.absoluteVirtualColumnCode;
+		document.getElementById("ve-info-entity-name").innerHTML = ve.refEntity.name;
+		document.getElementById("ve-info-entity-database").innerHTML = ve.refEntity.databaseName;
+		
+		let html = `
+		<table>
+			<thead>
+				<tr>
+					<th>項目名</th>
+					<th>表示名</th>
+					<th>集約関数</th>
+					<th>初期値</th>
+					<th>フォーマット</th>
+					<th>エンティティ名.項目名</th>
+				</tr>
+			</thead>
+			<tbody>`;
+		ve.columns.forEach((obj, index) => {
+			const refColumn = obj.refColumn != null ? obj.refColumn : '<span class="absolute-ve">完全仮想項目</span>';
+			html += `<tr>
+					<td>${obj.name}</td>
+					<td>${obj.displayName}</td>
+					<td>${obj.aggregateFunction}</td>
+					<td>${obj.fixedValue}</td>
+					<td>${obj.format}</td>
+					<td>${refColumn}</td>
+				</tr>`;
+		});
+		html += `
+			</tbody>
+		</table>`;
+		document.getElementById("ve-info-columns").innerHTML = html;
+		html = `
+			<table>
+			<thead>
+				<tr>
+					<th>項目名</th>
+					<th>サイズ</th>
+					<th>データタイプ</th>
+					<th>少数サイズ</th>
+					<th>Null可</th>
+					<th>プライマリキー</th>
+				</tr>
+			</thead>
+			<tbody>`;
+		ve.refEntity.columns.forEach((obj, index) => {
+			const isPrimaryKey = obj.primaryKey == true ? '<span class="absolute-ve">PK</span>' : '-';
+			html += `<tr>
+					<td>${obj.name}</td>
+					<td>${obj.size}</td>
+					<td>${obj.dataType}</td>
+					<td>${obj.decimalSize}</td>
+					<td>${obj.notNull}</td>
+					<td>${isPrimaryKey}</td>
+				</tr>`;
+		});
+		html += `
+			</tbody>
+		</table>`;
+		document.getElementById("ve-info-entity-columns").innerHTML = html;
+		html = ``;
+		if (ve.refEntity.uniqueKeys != undefined && ve.refEntity.uniqueKeys.length > 0) {
+			ve.refEntity.uniqueKeys.forEach((obj, index) => {
+				html += `<option>${obj.name}</option>`;
+			});
+		} else {
+			html = `<option>-</option>`;
+		}
+
+		document.getElementById("ve-entity-unique-keys").innerHTML = html;
+		document.getElementById("ve-entity-unique-keys").onchange = function() {
+			switchRefEntityUniqueKey(objIndex, paginatedArray, document.getElementById("ve-entity-unique-keys").value)
+		}
+		html = `
+			<table>
+			<thead>
+				<tr>
+					<th>項目名</th>
+					<th>サイズ</th>
+					<th>データタイプ</th>
+					<th>少数サイズ</th>
+					<th>Null可</th>
+				</tr>
+			</thead>
+			<tbody>`;
+		if (ve.refEntity.uniqueKeys != undefined && ve.refEntity.uniqueKeys.length > 0) {
+			ve.refEntity.uniqueKeys[0].uniqueKeyColumns.forEach((obj, index) => {
+				const isPrimaryKey = obj.primaryKey == true ? '<span class="absolute-ve">PK</span>' : '-';
+				html += `<tr>
+						<td>${obj.name}</td>
+						<td>${obj.size}</td>
+						<td>${obj.dataType}</td>
+						<td>${obj.decimalSize}</td>
+						<td>${obj.notNull}</td>
+					</tr>`;
+			});
+		}
+		html += `
+			</tbody>
+		</table>`;
+		document.getElementById("ve-info-entity-unique-keys-columns").innerHTML = html;
+		html = ``;
+		if (ve.refEntity.foreignKeys != undefined && ve.refEntity.foreignKeys.length > 0) {
+			ve.refEntity.foreignKeys.forEach((obj, index) => {
+				html += `<option>${obj.name}</option>`;
+			});
+		} else {
+			html = `<option>-</option>`;
+		}
+		document.getElementById("ve-entity-foreign-keys").innerHTML = html;
+		
+		document.getElementById("ve-entity-foreign-keys").onchange = function() {
+			switchRefEntityForeignKey(objIndex, paginatedArray, document.getElementById("ve-entity-foreign-keys").value)
+		}
+		if (ve.refEntity.foreignKeys != undefined && ve.refEntity.foreignKeys.length > 0) {
+			document.getElementById("ve-info-entity-foreign-keys-ref").innerHTML = ve.refEntity.foreignKeys[0].referenceEntity;
+			document.getElementById("ve-info-entity-foreign-keys-join-type").innerHTML = ve.refEntity.foreignKeys[0].joinType;
+		} else {
+			document.getElementById("ve-info-entity-foreign-keys-ref").innerHTML = "-";
+			document.getElementById("ve-info-entity-foreign-keys-join-type").innerHTML = "-";
+		}
+		html = `
+			<table>
+			<thead>
+				<tr>
+					<th>参照先項目</th>
+					<th>参照元項目</th>
+					<th>固定値</th>
+				</tr>
+			</thead>
+			<tbody>`;
+		if (ve.refEntity.foreignKeys != undefined && ve.refEntity.foreignKeys.length > 0) {
+			ve.refEntity.foreignKeys[0].foreignKeyColumns.forEach((obj, index) => {
+				html += `<tr>
+						<td>${obj.referenceColumn}</td>
+						<td>${obj.sourceColumn}</td>
+						<td>${obj.constValue}</td>
+					</tr>`;
+			});
+		}
+		
+		html += `
+			</tbody>
+		</table>`;
+		document.getElementById("ve-info-entity-foreign-keys-columns").innerHTML = html;
+		if (ve.absoluteVirtualColumnCode == "-") {
+			document.getElementById("copy-absolute-ve-btn").style.display = "none";
+		} else {
+			document.getElementById("copy-absolute-ve-btn").style.display = "block";
+		}
+		html = `
+			<table>
+			<thead>
+				<tr>
+					<th>仮想項目</th>
+					<th>比較オペレーター</th>
+					<th>フィルター値</th>
+				</tr>
+			</thead>
+			<tbody>`;
+		if (ve.filterConditions != undefined) {
+			ve.filterConditions.forEach((obj, index) => {
+				html += `<tr>
+						<td>${obj.column}</td>
+						<td>${obj.comparisonOperator}</td>
+						<td>${obj.filterValue}</td>
+					</tr>`;
+			});
+		}
+		html += `
+			</tbody>
+		</table>`;
+		document.getElementById("ve-info-filter-conditions").innerHTML = html;
+		
+		html = `
+			<table>
+			<thead>
+				<tr>
+					<th>仮想項目</th>
+					<th>比較オペレーター</th>
+					<th>オプション</th>
+					<th>スペース</th>
+				</tr>
+			</thead>
+			<tbody>`;
+		if (ve.searchConditions != undefined) {
+			ve.searchConditions.forEach((obj, index) => {
+				html += `<tr>
+						<td>${obj.column}</td>
+						<td>${obj.comparisonOperator}</td>
+						<td>${obj.optional ? 'Option' : 'Required [IS NULL]'}</td>
+						<td>${obj.trim ? 'Trim' : 'No Delete'}</td>
+					</tr>`;
+			});
+		}
+		html += `
+			</tbody>
+		</table>`;
+		document.getElementById("ve-info-search-conditions").innerHTML = html;
+		
+		html = `
+			<table>
+			<thead>
+				<tr>
+					<th>仮想項目</th>
+					<th>タイプ</th>
+				</tr>
+			</thead>
+			<tbody>`;
+		if (ve.sortConditions) {
+			ve.sortConditions.forEach((obj, index) => {
+				html += `<tr>
+						<td>${obj.sortColumn}</td>
+						<td>${obj.sortMode}</td>
+					</tr>`;
+			});
+		}
+		html += `
+			</tbody>
+		</table>`;
+		document.getElementById("ve-info-sort-columns").innerHTML = html;
+		
+		html = `
+			<table>
+			<thead>
+				<tr>
+					<th>仮想項目</th>
+				</tr>
+			</thead>
+			<tbody>`;
+		if (ve.groupConditions != undefined) {
+			ve.groupConditions.forEach((obj, index) => {
+				html += `<tr>
+						<td>${obj.groupColumn}</td>
+					</tr>`;
+			});
+		}
+		html += `
+			</tbody>
+		</table>`;
+		document.getElementById("ve-info-group-columns").innerHTML = html;
+		
+		if (ve.foreignKeys != undefined && ve.foreignKeys.length > 0) {
+			ve.foreignKeys.forEach((obj, index) => {
+				html += `<option>${obj.name}</option>`;
+			});
+		} else {
+			html = `<option>-</option>`;
+		}
+		document.getElementById("ve-foreign-keys").innerHTML = html;
+		document.getElementById("ve-foreign-keys").onchange = function() {
+			switchForeignKey(objIndex, paginatedArray, document.getElementById("ve-foreign-keys").value)
+		}
+		if (ve.foreignKeys != undefined && ve.foreignKeys.length > 0) {
+			document.getElementById("ve-info-foreign-keys-ref").innerHTML = ve.foreignKeys[0].referenceEntity;
+			document.getElementById("ve-info-foreign-keys-join-type").innerHTML = ve.foreignKeys[0].joinType;
+		} else {
+			document.getElementById("ve-info-foreign-keys-ref").innerHTML = "-";
+			document.getElementById("ve-info-foreign-keys-join-type").innerHTML = "-";
+		}
+		html = `
+			<table>
+			<thead>
+				<tr>
+					<th>参照先項目</th>
+					<th>参照元項目</th>
+					<th>固定値</th>
+				</tr>
+			</thead>
+			<tbody>`;
+		if (ve.foreignKeys != undefined && ve.foreignKeys.length > 0) {
+			ve.foreignKeys[0].foreignKeyColumns.forEach((obj, index) => {
+				html += `<tr>
+						<td>${obj.referenceColumn}</td>
+						<td>${obj.sourceColumn}</td>
+						<td>${obj.constValue}</td>
+					</tr>`;
+			});
+		}
+		
+		html += `
+			</tbody>
+		</table>`;
+		document.getElementById("ve-info-foreign-keys-columns").innerHTML = html;
+		checkAllTableContainerOverflow();
+	}
+	window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeDialog();
+      }
+    });
+	
+	
+	const tabs = document.querySelectorAll('.tab');
+	const contents = document.querySelectorAll('.tab-content');
+
+	function switchTab(event) {
+		const targetId = event.target.getAttribute('data-target');
+		tabs.forEach(tab => tab.classList.remove('active'));
+		contents.forEach(content => content.classList.remove('active'));
+
+		event.target.classList.add('active');
+		document.getElementById(targetId).classList.add('active');
+		checkAllTableContainerOverflow();
+	}
+
+	tabs.forEach(tab => {
+		tab.addEventListener('click', switchTab);
+	});
+
+	tabs[0].classList.add('active');
+	contents[0].classList.add('active');
+	function switchForeignKey(objIndex, paginatedArray, name) {
+		const ve = paginatedArray[objIndex].virtualEntity;
+		let html = `
+			<table>
+			<thead>
+				<tr>
+					<th>参照先項目</th>
+					<th>参照元項目</th>
+					<th>固定値</th>
+				</tr>
+			</thead>
+			<tbody>`;
+		if (ve.foreignKeys != undefined && ve.foreignKeys.length > 0) {
+			const filteredFK = ve.foreignKeys.filter(fk => fk.name === name)[0];
+			document.getElementById("ve-info-foreign-keys-ref").innerHTML = filteredFK.referenceEntity;
+			document.getElementById("ve-info-foreign-keys-join-type").innerHTML = filteredFK.joinType;
+			filteredFK.foreignKeyColumns.forEach((obj, index) => {
+				html += `<tr>
+						<td>${obj.referenceColumn}</td>
+						<td>${obj.sourceColumn}</td>
+						<td>${obj.constValue}</td>
+					</tr>`;
+			});
+		}
+		
+		html += `
+			</tbody>
+		</table>`;
+		document.getElementById("ve-info-foreign-keys-columns").innerHTML = html;
+	}
+	function switchRefEntityForeignKey(objIndex, paginatedArray, name) {
+		const ve = paginatedArray[objIndex].virtualEntity;
+		let html = `
+			<table>
+			<thead>
+				<tr>
+					<th>参照先項目</th>
+					<th>参照元項目</th>
+					<th>固定値</th>
+				</tr>
+			</thead>
+			<tbody>`;
+		if (ve.refEntity.foreignKeys != undefined && ve.refEntity.foreignKeys.length > 0) {
+			const filteredFK = ve.refEntity.foreignKeys.filter(fk => fk.name === name)[0];
+			document.getElementById("ve-info-entity-foreign-keys-ref").innerHTML = filteredFK.referenceEntity;
+			document.getElementById("ve-info-entity-foreign-keys-join-type").innerHTML = filteredFK.joinType;
+			filteredFK.foreignKeyColumns.forEach((obj, index) => {
+				html += `<tr>
+						<td>${obj.referenceColumn}</td>
+						<td>${obj.sourceColumn}</td>
+						<td>${obj.constValue}</td>
+					</tr>`;
+			});
+		}
+		
+		html += `
+			</tbody>
+		</table>`;
+		document.getElementById("ve-info-entity-foreign-keys-columns").innerHTML = html;
+	}
+	function switchRefEntityUniqueKey(objIndex, paginatedArray, name) {
+		const ve = paginatedArray[objIndex].virtualEntity;
+		let html = `
+			<table>
+			<thead>
+				<tr>
+					<th>項目名</th>
+					<th>データタイプ</th>
+					<th>サイズ</th>
+					<th>少数サイズ</th>
+					<th>Null可</th>
+				</tr>
+			</thead>
+			<tbody>`;
+		if (ve.refEntity.uniqueKeys != undefined && ve.refEntity.uniqueKeys.length > 0) {
+			const filteredUK = ve.refEntity.uniqueKeys.filter(uk => uk.name === name)[0];
+			filteredUK.uniqueKeyColumns.forEach((obj, index) => {
+				const isPrimaryKey = obj.primaryKey == true ? '<span class="absolute-ve">PK</span>' : '-';
+				html += `<tr>
+						<td>${obj.name}</td>
+						<td>${obj.dataType}</td>
+						<td>${obj.size}</td>
+						<td>${obj.decimalSize}</td>
+						<td>${obj.notNull}</td>
+					</tr>`;
+			});
+		}
+		
+		html += `
+			</tbody>
+		</table>`;
+		document.getElementById("ve-info-entity-unique-keys-columns").innerHTML = html;
+	}
+	function checkOverflow(resizableDiv) {
+	  const isOverflowing = resizableDiv.scrollHeight > resizableDiv.clientHeight;
+	  if (isOverflowing) {
+		resizableDiv.style.resize = 'vertical';
+	  } else {
+		resizableDiv.style.resize = 'none';
+	  }
+	}
+	window.addEventListener('load', function() {
+		checkAllTableContainerOverflow();
+	});
+	function checkAllTableContainerOverflow() {
+		checkOverflow(document.getElementById("ve-info-entity-foreign-keys-columns-container"));
+		checkOverflow(document.getElementById("ve-info-entity-unique-keys-columns-container"));
+		checkOverflow(document.getElementById("ve-info-entity-columns-container"));
+		checkOverflow(document.getElementById("ve-info-group-columns-container"));
+		checkOverflow(document.getElementById("ve-info-sort-columns-container"));
+		checkOverflow(document.getElementById("ve-info-search-conditions-container"));
+		checkOverflow(document.getElementById("ve-info-filter-conditions-container"));
+		checkOverflow(document.getElementById("ve-info-foreign-keys-columns-container"));
+		checkOverflow(document.getElementById("ve-info-columns-container"));
+	}
+	window.addEventListener('resize', function() {
+		checkAllTableContainerOverflow();
+	});
+
+</script>
+
+</body>
+</html>

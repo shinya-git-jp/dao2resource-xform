@@ -1,0 +1,30 @@
+db:
+# gef-daoリポジトリテーブルにアクセスする時の接続情報を設定します。
+    url: jdbc:db2://10.149.101.78:50000/testdb
+    dbType: db2
+    schema: geframe
+    username: db2inst1
+    password: jissou0000
+reservedWords:
+# gef-dao Virtual Entityに設定されている各種予約語をツールに連携します。
+    primaryKey: "objectID"
+    exclusiveKey: "ExclusiveFG"
+    companyCodeKey: "CompanyCD"
+    insertedUserIDKey: RegisteredPerson
+    insertedDateKey: RegisteredDT
+    updatedUserIDKey: UpdatedPerson
+    updatedDateKey: UpdatedDT
+locale:
+    current: en
+    mapping:
+        country1: en
+        country2: ja
+        country3: zh
+        country4:
+        country5:
+#condition.encoding: UTF-8 
+transform:
+    encoding: UTF-8 
+    useForeignKey: true #true/false
+    forceAliasColumn: true 
+    #queryMode: ENTITY_QUERY #ENTITY_QUERY/DIRECT_QUERY 

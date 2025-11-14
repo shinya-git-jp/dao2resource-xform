@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	This configuration file was written by the eclipse-cs plugin configuration editor
+-->
+<!--
+Checkstyle-Configuration: kccs-checkstyle-2.0.1
+Description:
+
+-->
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.2//EN" "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+<module name="Checker">
+    <property name="severity" value="warning"/>
+    <module name="TreeWalker">
+        <property name="tabWidth" value="4"/>
+        <module name="JavadocMethod">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-1-1-1 Javadocコメントは必ず記述する"/>
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.lastEnabledSeverity" value="error"/>
+            <property name="severity" value="ignore"/>
+        </module>
+        <module name="JavadocType">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-1-1-1 Javadocコメントは必ず記述する"/>
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.lastEnabledSeverity" value="error"/>
+            <property name="severity" value="ignore"/>
+            <property name="authorFormat" value="."/>
+        </module>
+        <module name="JavadocVariable">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-1-1-1 Javadocコメントは必ず記述する"/>
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.lastEnabledSeverity" value="error"/>
+            <property name="severity" value="ignore"/>
+        </module>
+        <module name="JavadocStyle">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-1-1-1 Javadocコメントは必ず記述する"/>
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.lastEnabledSeverity" value="error"/>
+            <property name="severity" value="ignore"/>
+            <property name="excludeScope" value="private"/>
+            <property name="checkEmptyJavadoc" value="true"/>
+        </module>
+        <module name="ConstantName">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-4-3-1 定数の変数名は全て大文字とし、区切りは”_”"/>
+            <property name="severity" value="error"/>
+        </module>
+        <module name="MemberName">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-2-2-1 パッケージ名は全て小文字にする"/>
+            <property name="severity" value="error"/>
+            <property name="applyToPublic" value="false"/>
+            <property name="applyToProtected" value="false"/>
+            <property name="applyToPrivate" value="false"/>
+        </module>
+        <module name="MethodName">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-5-2-1 メソッド名は区切りのみ大文字にする"/>
+            <property name="severity" value="error"/>
+        </module>
+        <module name="PackageName">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-2-2-1 パッケージ名は全て小文字にする"/>
+            <property name="severity" value="error"/>
+            <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
+        </module>
+        <module name="StaticVariableName"/>
+        <module name="TypeName">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-3-1-1;3-3-4-1;3-3-6-1;3-3-7-1"/>
+            <property name="severity" value="error"/>
+        </module>
+        <module name="AvoidStarImport">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-10-2-1 クラスインポートをするとき*は使わない"/>
+            <property name="severity" value="error"/>
+        </module>
+        <module name="RedundantImport">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-10-1-1 java.langパッケージはインポートしない"/>
+            <property name="severity" value="error"/>
+        </module>
+        <module name="UnusedImports">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-1-4-1 使われないコードは書かない"/>
+            <property name="severity" value="error"/>
+        </module>
+        <module name="MethodLength">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-8-1-1 1メソッドの行数は150行以下"/>
+            <property name="severity" value="ignore"/>
+        </module>
+        <module name="NoWhitespaceAfter">
+            <property name="severity" value="error"/>
+            <property name="tokens" value="ARRAY_INIT,BNOT,DEC,DOT,INC,LNOT,UNARY_MINUS,UNARY_PLUS"/>
+        </module>
+        <module name="NoWhitespaceBefore">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="ParenPad">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="TypecastParenPad">
+            <property name="severity" value="error"/>
+            <property name="tokens" value="RPAREN,TYPECAST"/>
+        </module>
+        <module name="WhitespaceAfter">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-8-2-6 カンマの後には空白文字を入れる"/>
+            <property name="severity" value="error"/>
+        </module>
+        <module name="WhitespaceAround">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-8-2-7;3-8-2-10;3-8-2-11;3-8-2-12;3-8-2-16"/>
+            <property name="severity" value="error"/>
+            <property name="tokens" value="ASSIGN,BAND,BAND_ASSIGN,BOR,BOR_ASSIGN,BSR,BSR_ASSIGN,BXOR,BXOR_ASSIGN,COLON,DIV,DIV_ASSIGN,EQUAL,GE,GT,LAND,LCURLY,LE,LITERAL_ASSERT,LITERAL_CATCH,LITERAL_DO,LITERAL_ELSE,LITERAL_FINALLY,LITERAL_FOR,LITERAL_IF,LITERAL_RETURN,LITERAL_SYNCHRONIZED,LITERAL_TRY,LITERAL_WHILE,LOR,LT,MINUS,MINUS_ASSIGN,MOD,MOD_ASSIGN,NOT_EQUAL,PLUS,PLUS_ASSIGN,QUESTION,SL,SLIST,SL_ASSIGN,SR,SR_ASSIGN,STAR,STAR_ASSIGN,LITERAL_ASSERT,TYPE_EXTENSION_AND"/>
+        </module>
+        <module name="RegexpSinglelineJava">
+            <property name="format" value="\?(extends)" />
+            <property name="severity" value="error"/>
+            <property name="message" value="「?」の後ホワイトスペースはありません。" />
+        </module>
+        <module name="RegexpSinglelineJava">
+            <property name="format" value="\&lt;\s+\?\s+\&gt;" />
+            <property name="severity" value="error"/>
+            <property name="message" value="「?」の前後ホワイトスペースは許可されませ。" />
+        </module>
+        <module name="RegexpSinglelineJava">
+            <property name="format" value="\&lt;\s+\?\&gt;" />
+            <property name="severity" value="error"/>
+            <property name="message" value="「?」の前ホワイトスペースは許可されませ。" />
+        </module>
+        <module name="RegexpSinglelineJava">
+            <property name="format" value="\&lt;\?\s+\&gt;" />
+            <property name="severity" value="error"/>
+            <property name="message" value="「?」の後ホワイトスペースは許可されませ。" />
+        </module>
+        <module name="EmptyBlock">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-5-3-1;3-9-2-1"/>
+            <property name="severity" value="error"/>
+        </module>
+        <module name="LeftCurly">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-8-2-4 ｛の後にステートメントを記述しない"/>
+            <property name="severity" value="error"/>
+            <!-- remove deprecated property maxLineLength from LeftCurlyCheck. Author: rnveach #3671
+            See also: https://github.com/checkstyle/checkstyle/issues/3671
+            <property name="maxLineLength" value="160"/>
+            -->
+        </module>
+        <module name="NeedBraces">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-9-1-1 制御文の”｛｝”は省略しない"/>
+            <property name="severity" value="error"/>
+        </module>
+        <module name="RightCurly">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.lastEnabledSeverity" value="error"/>
+            <property name="severity" value="ignore"/>
+        </module>
+        <!-- 
+        The DoubleCheckedLocking check has been removed in Checkstyle 5.6 and must be manually removed from your Checkstyle configuration.
+        See also: http://sourceforge.net/tracker/index.php?func=detail&aid=3571442&group_id=29721&atid=397078
+        <module name="DoubleCheckedLocking">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-6-4-1 synchronizedブロックからsynchronizedブロックのあるメソッドを呼び出さない"/>
+            <property name="severity" value="error"/>
+        </module>
+        -->
+        <module name="EqualsHashCode">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-13-5-1 equals()メソッドを実装した場合は、hashCode()メソッドも実装する"/>
+            <property name="severity" value="error"/>
+        </module>
+        <module name="SimplifyBooleanExpression">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-8-2-14;3-9-3-1"/>
+            <property name="severity" value="error"/>
+        </module>
+        <module name="FinalClass">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-1-6-1 Finalを適切に利用する"/>
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.lastEnabledSeverity" value="error"/>
+            <property name="severity" value="ignore"/>
+        </module>
+        <module name="InterfaceIsType">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-1-2-1 オブジェクトの参照にはインタフェースを利用せよ"/>
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.lastEnabledSeverity" value="error"/>
+            <property name="severity" value="ignore"/>
+        </module>
+        <module name="ArrayTypeStyle">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-2-5-1 配列宣言は ”配列の型[] 変数”とする"/>
+            <property name="severity" value="error"/>
+        </module>
+        <module name="FinalParameters">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-1-6-1 Finalを適切に利用する"/>
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.lastEnabledSeverity" value="error"/>
+            <property name="severity" value="ignore"/>
+            <property name="tokens" value="CTOR_DEF"/>
+        </module>
+        <!-- Instead of using the [PMD] Avoid unnecessary constructors - the compiler will generate these for you.
+        <module name="MissingCtor">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-3-1-1 デフォルトコンストラクターは必ず作成する"/>
+            <property name="severity" value="error"/>
+        </module>
+        -->
+        <module name="StringLiteralEquality">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-11-2-3 文字列定数と変数を比較するときは文字列定数のequals()メソッドを利用する"/>
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.lastEnabledSeverity" value="error"/>
+            <property name="severity" value="error"/>
+        </module>
+        <module name="Indentation">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-8-2-2 インデントは空白文字4文字分とする"/>
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.lastEnabledSeverity" value="error"/>
+            <property name="severity" value="error"/>
+        </module>
+        <module name="SuperFinalize">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-7-1-1 finalize()をオーバーライドした場合はsuper.finalize()を呼び出す"/>
+            <property name="severity" value="error"/>
+        </module>
+        <module name="MultipleVariableDeclarations">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-2-6-1 １つのステートメントには1つの変数を宣言する"/>
+            <property name="severity" value="error"/>
+        </module>
+        <module name="IllegalCatch">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-5-1-1 catchで受け取る例外は詳細な例外クラスで受け取る"/>
+            <property name="severity" value="error"/>
+        </module>
+        <module name="LocalVariableName">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-4-6 変数名は単語の先頭を小文字にする"/>
+            <property name="severity" value="error"/>
+        </module>
+        <module name="LambdaParameterName">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-4-6 変数名は単語の先頭を小文字にする" />
+            <property name="severity" value="error" />
+        </module>
+        <module name="InvalidJavadocPosition"/>
+    </module>
+    <module name="FileLength">
+        <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-8-1-2 1クラスの行数は2000行以下"/>
+    </module>
+
+    <module name="LineLength">
+        <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-8-2-3 1コード行は120文字"/>
+        <property name="max" value="120"/>
+        <property name="severity" value="ignore"/>
+    </module>
+    <module name="FileTabCharacter">
+        <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="規約No.3-8-2-1 タブを利用せず空白文字を利用する"/>
+        <metadata name="com.atlassw.tools.eclipse.checkstyle.lastEnabledSeverity" value="error"/>
+        <property name="severity" value="ignore"/>
+    </module>
+</module>

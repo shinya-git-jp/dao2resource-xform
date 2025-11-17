@@ -65,6 +65,11 @@
 				<module>dao2jdbc-entity-xform-entity2xml-service</module>
 				<module>dao2jdbc-code-xform-sql-extractor-service</module>
 				<module>dao2jdbc-xform-view</module>
+
+				<module>dao2message-xform</module>
+				<module>dao2message-xform-service</module>
+				<module>dao2message-xform</module>
+				<module>dao2message-xform-service</module>
 			</modules>
 		</profile>
 		<profile>

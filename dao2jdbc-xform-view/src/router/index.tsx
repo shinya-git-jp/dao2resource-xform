@@ -8,6 +8,7 @@ import { EntityInputList } from "../features/transform-entity/components/InputLi
 import MainPage from "../pages/MainPage";
 import HomePage from "../pages/HomePage";
 
+
 /**
  *
  * @create 2024/04/30
@@ -35,10 +36,10 @@ export const MyRouter = () => {
       {<NavigateFunctionComponent />}
       <Routes>
         <Route path="/" element={<MainPage />}>
-            <Route path="" element={<HomePage />} />
-            <Route path="setting" element={<SettingListPage />} />
-            <Route path="transform-code" element={<InputListPage />} />
-            <Route path="transform-entity" element={<EntityInputList />}/>
+          <Route path="" element={<HomePage />} />
+          <Route path="setting" element={<SettingListPage />} />
+          <Route path="transform-code" element={<InputListPage />} />
+          <Route path="transform-entity" element={<EntityInputList />} />
         </Route>
       </Routes>
     </BrowserRouter>

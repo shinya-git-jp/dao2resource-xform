@@ -121,34 +121,6 @@ const MenuDrawer: React.FC<MenuDrawerProps> = ({ open, onClose }) => {
                                 />
                             </ListItemButton>
                         </ListItem>
-
-                        <ListItem key={"変換設定の管理"} disablePadding>
-                            <ListItemButton onClick={() => {
-                                navigate("/transform-message");
-                            }}>
-                                <ListItemAvatar sx={{ minWidth: 40 }}>
-                                    <BackupTableIcon color="primary" fontSize="medium" />
-                                </ListItemAvatar>
-                                <ListItemText
-                                    primary={<Box sx={{ color: "#1b85d1" }} fontWeight={"bold"}>メッセージリソース変換</Box>}
-                                    secondary={"メッセージリソース変換するためのページです。"}
-                                />
-                            </ListItemButton>
-                        </ListItem>
-
-                        <ListItem key={"変換設定の管理"} disablePadding>
-                            <ListItemButton onClick={() => {
-                                navigate("/transform-error-message");
-                            }}>
-                                <ListItemAvatar sx={{ minWidth: 40 }}>
-                                    <BackupTableIcon color="primary" fontSize="medium" />
-                                </ListItemAvatar>
-                                <ListItemText
-                                    primary={<Box sx={{ color: "#1b85d1" }} fontWeight={"bold"}>エラーメッセージリソース変換</Box>}
-                                    secondary={"エラーメッセージリソース変換するためのページです。"}
-                                />
-                            </ListItemButton>
-                        </ListItem>
                     </List>
                 </Box>
 
